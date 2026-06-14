@@ -1,4 +1,4 @@
-/**
+﻿/**
  * One-time setup: generate 4 agent wallets, fund them, register on-chain.
  * Run: node setup.js
  * Paste the output private keys into agents/.env
@@ -19,7 +19,7 @@ const BOTS = [
   require("./web3bot"),
 ];
 
-const CONTRACT  = process.env.CONTRACT_ADDRESS || "0xCE43B018cCc600703890c84BdEd478129A189043";
+const CONTRACT  = process.env.CONTRACT_ADDRESS || "0xb9B3727B5CE642C8D364A45529D6dd682D6D2687";
 const RPC       = process.env.RPC_URL          || "https://rpc.sepolia.mantle.xyz";
 const FUND_EACH = ethers.parseEther("0.25"); // enough for registration stake + gas
 
@@ -31,9 +31,9 @@ async function main() {
   const deployer = new ethers.Wallet(deployerKey, provider);
   const balance  = await provider.getBalance(deployer.address);
 
-  console.log("\n╔══════════════════════════════════════════════════════════╗");
-  console.log("║            Lovelace Agent Setup                         ║");
-  console.log("╚══════════════════════════════════════════════════════════╝");
+  console.log("\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—");
+  console.log("â•‘            Lovelace Agent Setup                         â•‘");
+  console.log("â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•");
   console.log(`  Deployer : ${deployer.address}`);
   console.log(`  Balance  : ${ethers.formatEther(balance)} MNT`);
   console.log(`  Contract : ${CONTRACT}\n`);
@@ -77,18 +77,18 @@ async function main() {
 
   // Write .env
   fs.writeFileSync(envPath, envLines.join("\n") + "\n");
-  console.log(`\n  ✅ Wallet keys written to agents/.env`);
-  console.log(`  ⚠️  Add your GROQ_API_KEY and HEURIST_API_KEY to agents/.env before starting\n`);
+  console.log(`\n  âœ… Wallet keys written to agents/.env`);
+  console.log(`  âš ï¸  Add your GROQ_API_KEY and HEURIST_API_KEY to agents/.env before starting\n`);
 
   // Fund wallets that need it
-  console.log("──────────────────────────────────────────────────────────");
+  console.log("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
   console.log("  Funding agent wallets");
-  console.log("──────────────────────────────────────────────────────────");
+  console.log("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
 
   for (const [name, wallet] of Object.entries(wallets)) {
     const bal = await provider.getBalance(wallet.address);
     if (bal >= FUND_EACH) {
-      console.log(`  ${name.padEnd(12)}: already funded (${ethers.formatEther(bal)} MNT) ✅`);
+      console.log(`  ${name.padEnd(12)}: already funded (${ethers.formatEther(bal)} MNT) âœ…`);
       continue;
     }
     const needed = FUND_EACH - bal;
@@ -96,16 +96,16 @@ async function main() {
     try {
       const tx = await deployer.sendTransaction({ to: wallet.address, value: needed });
       await tx.wait();
-      console.log(`✅  ${EXPLORER}/tx/${tx.hash}`);
+      console.log(`âœ…  ${EXPLORER}/tx/${tx.hash}`);
     } catch (e) {
-      console.log(`❌  ${e.message.split("\n")[0]}`);
+      console.log(`âŒ  ${e.message.split("\n")[0]}`);
     }
   }
 
   // Register agents on-chain
-  console.log("\n──────────────────────────────────────────────────────────");
+  console.log("\nâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
   console.log("  Registering agents on-chain");
-  console.log("──────────────────────────────────────────────────────────");
+  console.log("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
 
   for (let i = 0; i < BOTS.length; i++) {
     const bot    = BOTS[i];
@@ -113,14 +113,14 @@ async function main() {
     try {
       await ensureRegistered(wallet, CONTRACT, provider, bot.CONFIG);
     } catch (e) {
-      console.log(`  [${bot.CONFIG.name}] ❌ ${e.message.split("\n")[0]}`);
+      console.log(`  [${bot.CONFIG.name}] âŒ ${e.message.split("\n")[0]}`);
     }
   }
 
   // Final summary
-  console.log("\n╔══════════════════════════════════════════════════════════╗");
-  console.log("║              Setup Complete ✅                           ║");
-  console.log("╚══════════════════════════════════════════════════════════╝");
+  console.log("\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—");
+  console.log("â•‘              Setup Complete âœ…                           â•‘");
+  console.log("â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•");
   for (const bot of BOTS) {
     const w = wallets[bot.CONFIG.name];
     const b = await provider.getBalance(w.address);

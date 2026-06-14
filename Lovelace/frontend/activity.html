@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Protocol Activity — Lovelace</title>
+<title>Protocol Activity â€” Lovelace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -53,7 +53,7 @@
     padding: 0 24px 80px;
   }
 
-  /* ── Header ── */
+  /* â”€â”€ Header â”€â”€ */
   .page-header {
     padding: 40px 0 32px;
     border-bottom: 1px solid var(--border);
@@ -91,7 +91,7 @@
   .contract-pill:hover { border-color: var(--accent); color: var(--text-1); }
   .contract-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
 
-  /* ── Stats strip ── */
+  /* â”€â”€ Stats strip â”€â”€ */
   .stats-strip {
     display: flex;
     border-top: 1px solid var(--border);
@@ -115,7 +115,7 @@
   }
   .strip-label { color: var(--text-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
 
-  /* ── Tabs ── */
+  /* â”€â”€ Tabs â”€â”€ */
   .tabs {
     display: flex; gap: 4px;
     border-bottom: 1px solid var(--border);
@@ -137,7 +137,7 @@
   .tab-pane { display: none; }
   .tab-pane.active { display: block; }
 
-  /* ── Activity feed ── */
+  /* â”€â”€ Activity feed â”€â”€ */
   .feed { display: flex; flex-direction: column; gap: 2px; }
 
   .feed-item {
@@ -204,7 +204,7 @@
     transition: color 0.2s;
   }
   .feed-tx:hover { color: var(--accent2); }
-  .feed-tx::before { content: '↗'; }
+  .feed-tx::before { content: 'â†—'; }
 
   .feed-meta {
     display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
@@ -236,7 +236,7 @@
     color: var(--text-2);
   }
 
-  /* ── Agents grid ── */
+  /* â”€â”€ Agents grid â”€â”€ */
   .agents-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -279,7 +279,7 @@
   .status-inactive { background: rgba(107,114,128,0.12); color: #6b7280; border: 1px solid rgba(107,114,128,0.2); }
   .stars { color: var(--amber); font-size: 13px; }
 
-  /* ── Jobs table ── */
+  /* â”€â”€ Jobs table â”€â”€ */
   .jobs-list { display: flex; flex-direction: column; gap: 10px; }
   .job-card {
     background: var(--surface);
@@ -325,7 +325,7 @@
   }
   .job-explorer:hover { color: var(--accent2); }
 
-  /* ── Loading state ── */
+  /* â”€â”€ Loading state â”€â”€ */
   .loading {
     text-align: center; padding: 80px 24px;
     color: var(--text-3); font-family: var(--mono); font-size: 13px;
@@ -360,34 +360,34 @@
 
   <header class="page-header">
     <div>
-      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3);text-decoration:none;margin-bottom:10px;transition:color 0.2s;" onmouseover="this.style.color='var(--text-1)'" onmouseout="this.style.color='var(--text-3)'">← Lovelace Protocol</a>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3);text-decoration:none;margin-bottom:10px;transition:color 0.2s;" onmouseover="this.style.color='var(--text-1)'" onmouseout="this.style.color='var(--text-3)'">â† Lovelace Protocol</a>
       <h1>Protocol <em>Activity</em> Feed</h1>
-      <p class="sub">Live on-chain activity — Mantle Sepolia Testnet</p>
+      <p class="sub">Live on-chain activity â€” Mantle Sepolia Testnet</p>
     </div>
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
-      <a href="index.html#create-job" class="contract-pill" style="background:var(--accent);border-color:var(--accent);color:#fff;font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 18px;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--accent)'">Hire an Agent →</a>
+      <a href="index.html#create-job" class="contract-pill" style="background:var(--accent);border-color:var(--accent);color:#fff;font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 18px;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--accent)'">Hire an Agent â†’</a>
       <a id="contractLink" class="contract-pill" href="#" target="_blank" rel="noopener">
         <span class="dot"></span>
-        <span id="contractAddr">loading…</span>
+        <span id="contractAddr">loadingâ€¦</span>
       </a>
     </div>
   </header>
 
   <div class="stats-strip" id="statsStrip">
     <div class="strip-stat">
-      <div class="strip-val" id="statEvents">—</div>
+      <div class="strip-val" id="statEvents">â€”</div>
       <div class="strip-label">Events</div>
     </div>
     <div class="strip-stat">
-      <div class="strip-val" id="statJobs">—</div>
+      <div class="strip-val" id="statJobs">â€”</div>
       <div class="strip-label">Jobs</div>
     </div>
     <div class="strip-stat">
-      <div class="strip-val" id="statAgents">—</div>
+      <div class="strip-val" id="statAgents">â€”</div>
       <div class="strip-label">Agents</div>
     </div>
     <div class="strip-stat">
-      <div class="strip-val" id="statVolume">—</div>
+      <div class="strip-val" id="statVolume">â€”</div>
       <div class="strip-label">Volume (MNT)</div>
     </div>
     <div class="strip-stat">
@@ -523,7 +523,7 @@ const BADGE_LABEL = {
 };
 
 function shortHash(h) {
-  return h ? h.slice(0,6) + '…' + h.slice(-4) : '—';
+  return h ? h.slice(0,6) + 'â€¦' + h.slice(-4) : 'â€”';
 }
 
 function renderFeed(data) {
@@ -567,12 +567,12 @@ function renderJobs(data) {
       <div class="job-id"><span>#${j.id}</span>Job</div>
       <div>
         <div class="job-desc">${j.description}</div>
-        <div class="job-meta-line">${j.resultUri ? '↗ ' + j.resultUri.replace('ipfs://','IPFS: ') : 'No result yet'}</div>
+        <div class="job-meta-line">${j.resultUri ? 'â†— ' + j.resultUri.replace('ipfs://','IPFS: ') : 'No result yet'}</div>
       </div>
       <div class="job-right">
         <span class="job-status s-${j.status}">${j.status}</span>
         <span class="job-escrow">${parseFloat(j.escrow).toFixed(3)} MNT</span>
-        <a class="job-explorer" href="${j.explorerUrl}" target="_blank" rel="noopener">↗ explorer</a>
+        <a class="job-explorer" href="${j.explorerUrl}" target="_blank" rel="noopener">â†— explorer</a>
       </div>
     `;
     list.appendChild(card);
@@ -586,7 +586,7 @@ function renderAgents(data) {
   grid.innerHTML = '';
   for (const agent of Object.values(data.agents)) {
     const p = agent.persona;
-    const stars = '★'.repeat(Math.round(agent.ratingAvg)) + '☆'.repeat(5 - Math.round(agent.ratingAvg));
+    const stars = 'â˜…'.repeat(Math.round(agent.ratingAvg)) + 'â˜†'.repeat(5 - Math.round(agent.ratingAvg));
     const card = document.createElement('div');
     card.className = 'agent-card';
     card.innerHTML = `
@@ -598,14 +598,14 @@ function renderAgents(data) {
           <div class="agent-role">${p.role}</div>
         </div>
       </div>
-      <span class="agent-status-badge ${agent.isActive ? 'status-active' : 'status-inactive'}">${agent.isActive ? '● Active' : '○ Inactive'}</span>
+      <span class="agent-status-badge ${agent.isActive ? 'status-active' : 'status-inactive'}">${agent.isActive ? 'â— Active' : 'â—‹ Inactive'}</span>
       <div class="agent-stats">
         <div class="agent-stat">
           <div class="agent-stat-val">${agent.jobsCompleted}</div>
           <div class="agent-stat-label">Jobs Done</div>
         </div>
         <div class="agent-stat">
-          <div class="agent-stat-val">${agent.ratingCount > 0 ? agent.ratingAvg.toFixed(1) : '—'}</div>
+          <div class="agent-stat-val">${agent.ratingCount > 0 ? agent.ratingAvg.toFixed(1) : 'â€”'}</div>
           <div class="agent-stat-label">Avg Rating</div>
         </div>
         <div class="agent-stat">
@@ -614,7 +614,7 @@ function renderAgents(data) {
         </div>
       </div>
       ${agent.ratingCount > 0 ? `<div class="stars">${stars} <span style="color:var(--text-3);font-size:11px">(${agent.ratingCount} reviews)</span></div>` : ''}
-      <a class="agent-link" href="${agent.explorerUrl}" target="_blank" rel="noopener">↗ View on explorer</a>
+      <a class="agent-link" href="${agent.explorerUrl}" target="_blank" rel="noopener">â†— View on explorer</a>
     `;
     grid.appendChild(card);
   }
@@ -638,7 +638,7 @@ function renderStats(data) {
   document.getElementById('statVolume').textContent = volume.toFixed(2);
 
   const addr = data.contract;
-  document.getElementById('contractAddr').textContent = addr.slice(0,6) + '…' + addr.slice(-4);
+  document.getElementById('contractAddr').textContent = addr.slice(0,6) + 'â€¦' + addr.slice(-4);
   document.getElementById('contractLink').href = data.contractUrl;
 }
 
@@ -700,7 +700,7 @@ function normalizeLiveData(live, liveAgents) {
       resultUri:   j.result || '',
       status:      'Finalized',
       escrow:      j.escrow_mnt || '0',
-      explorerUrl: j.tx_url || `${EXPLORER}/address/0xCE43B018cCc600703890c84BdEd478129A189043`,
+      explorerUrl: j.tx_url || `${EXPLORER}/address/0xb9B3727B5CE642C8D364A45529D6dd682D6D2687`,
     };
   });
 
@@ -749,8 +749,8 @@ function normalizeLiveData(live, liveAgents) {
     jobs:    jobsObj,
     agents:  agentsObj,
     stats:   { ...live.stats, volumeMnt: volume.toFixed(4) },
-    contract: '0xCE43B018cCc600703890c84BdEd478129A189043',
-    contractUrl: `${EXPLORER}/address/0xCE43B018cCc600703890c84BdEd478129A189043`,
+    contract: '0xb9B3727B5CE642C8D364A45529D6dd682D6D2687',
+    contractUrl: `${EXPLORER}/address/0xb9B3727B5CE642C8D364A45529D6dd682D6D2687`,
   };
 }
 

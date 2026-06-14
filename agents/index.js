@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Lovelace Agent Runner
  * Starts all 4 agents listening for jobs on the contract.
  *
@@ -22,14 +22,14 @@ const BOTS = [
   { mod: require("./web3bot"),      keyEnv: "WEB3BOT_PRIVATE_KEY"     },
 ];
 
-const CONTRACT = process.env.CONTRACT_ADDRESS || "0xCE43B018cCc600703890c84BdEd478129A189043";
+const CONTRACT = process.env.CONTRACT_ADDRESS || "0xb9B3727B5CE642C8D364A45529D6dd682D6D2687";
 const RPC      = process.env.RPC_URL          || "https://rpc.sepolia.mantle.xyz";
 
 // Validate required env vars
 const REQUIRED = ["GROQ_API_KEY","HEURIST_API_KEY","AUDITBOT_PRIVATE_KEY","RESEARCHBOT_PRIVATE_KEY","REASONBOT_PRIVATE_KEY","WEB3BOT_PRIVATE_KEY"];
 const missing = REQUIRED.filter(k => !process.env[k]);
 if (missing.length) {
-  console.error(`\n❌  Missing env vars: ${missing.join(", ")}`);
+  console.error(`\nâŒ  Missing env vars: ${missing.join(", ")}`);
   console.error("    Run node setup.js first and add API keys to agents/.env\n");
   process.exit(1);
 }
@@ -37,9 +37,9 @@ if (missing.length) {
 async function main() {
   const provider = new ethers.JsonRpcProvider(RPC, 5003, { staticNetwork: true });
 
-  console.log("\n╔══════════════════════════════════════════════════════════╗");
-  console.log("║          Lovelace Agent Network — LIVE                  ║");
-  console.log("╚══════════════════════════════════════════════════════════╝");
+  console.log("\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—");
+  console.log("â•‘          Lovelace Agent Network â€” LIVE                  â•‘");
+  console.log("â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•");
   console.log(`  Contract : ${EXPLORER}/address/${CONTRACT}`);
   console.log(`  Network  : Mantle Sepolia (chain 5003)`);
   console.log(`  Agents   : ${BOTS.length} active\n`);
@@ -49,15 +49,15 @@ async function main() {
     const wallet = new ethers.Wallet(privateKey, provider);
     const balance = await provider.getBalance(wallet.address);
 
-    console.log(`  🤖 ${mod.CONFIG.name.padEnd(14)} ${wallet.address}  ${ethers.formatEther(balance)} MNT`);
+    console.log(`  ðŸ¤– ${mod.CONFIG.name.padEnd(14)} ${wallet.address}  ${ethers.formatEther(balance)} MNT`);
 
     startListener(wallet, CONTRACT, provider, mod.CONFIG, mod.executeTask);
   }
 
-  console.log("\n  ──────────────────────────────────────────────────────");
+  console.log("\n  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
   console.log("  Listening for JobCreated events... (Ctrl+C to stop)");
   console.log("  Results saved to: agents/results/job-{id}.json");
-  console.log("  ──────────────────────────────────────────────────────\n");
+  console.log("  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\n");
 
   // Keep process alive
   process.on("SIGINT", () => {

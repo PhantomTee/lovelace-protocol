@@ -1,9 +1,13 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.24;
+pragma solidity ^0.8.25;
 
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+
+interface IAgentNFT {
+    function mint(address agent) external;
+}
 
 /**
  * @title Lovelace
@@ -28,6 +32,7 @@ contract Lovelace is ReentrancyGuard {
     // ─────────────────────────────────────────────────────────────
 
     address public owner;
+    address public agentNFT;
 
     event OwnershipTransferred(address indexed previous, address indexed next);
 
@@ -45,6 +50,10 @@ contract Lovelace is ReentrancyGuard {
         require(newOwner != address(0), "Zero address");
         emit OwnershipTransferred(owner, newOwner);
         owner = newOwner;
+    }
+
+    function setAgentNFT(address nft) external onlyOwner {
+        agentNFT = nft;
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -155,8 +164,8 @@ contract Lovelace is ReentrancyGuard {
     // Modifiers
     // ─────────────────────────────────────────────────────────────
 
-    modifier agentExists(address owner) {
-        require(agents[owner].exists, "Agent not registered");
+    modifier agentExists(address agentOwner) {
+        require(agents[agentOwner].exists, "Agent not registered");
         _;
     }
 
@@ -198,6 +207,11 @@ contract Lovelace is ReentrancyGuard {
 
         emit AgentRegistered(msg.sender, name, capabilities, priceWei);
         emit AgentStaked(msg.sender, msg.value, msg.value);
+
+        // Mint ERC-8004 agent identity NFT if the NFT contract is set
+        if (agentNFT != address(0)) {
+            try IAgentNFT(agentNFT).mint(msg.sender) {} catch {}
+        }
     }
 
     // ─────────────────────────────────────────────────────────────
@@ -639,8 +653,8 @@ contract Lovelace is ReentrancyGuard {
         return jobs[jobId];
     }
 
-    function getAgent(address owner) external view returns (AgentProfile memory) {
-        return agents[owner];
+    function getAgent(address agentOwner) external view returns (AgentProfile memory) {
+        return agents[agentOwner];
     }
 
     receive() external payable {}

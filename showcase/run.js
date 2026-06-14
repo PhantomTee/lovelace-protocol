@@ -1,5 +1,5 @@
-/**
- * Lovelace Showcase — 20 Jobs
+﻿/**
+ * Lovelace Showcase â€” 20 Jobs
  * Generates rich on-chain activity across all contract flows.
  * Writes activity-data.json for the activity page.
  */
@@ -9,7 +9,7 @@ const { ethers } = require("ethers");
 const fs = require("fs");
 const path = require("path");
 
-const CONTRACT = "0xCE43B018cCc600703890c84BdEd478129A189043";
+const CONTRACT = "0xb9B3727B5CE642C8D364A45529D6dd682D6D2687";
 const EXPLORER = "https://explorer.sepolia.mantle.xyz";
 const RPC      = "https://rpc.sepolia.mantle.xyz";
 
@@ -49,9 +49,9 @@ const activity = [];    // collected events for activity page
 let stepNum = 0;
 
 function section(title) {
-  console.log(`\n${"─".repeat(62)}`);
+  console.log(`\n${"â”€".repeat(62)}`);
   console.log(`  ${title}`);
-  console.log("─".repeat(62));
+  console.log("â”€".repeat(62));
 }
 
 function log_activity(type, actor, details, txHash, jobId = null, amount = null) {
@@ -73,12 +73,12 @@ async function send(label, fn, actor, evtType, evtDetails, jobId = null, amount 
   try {
     const tx = await fn();
     const r  = await tx.wait();
-    console.log(`✅`);
+    console.log(`âœ…`);
     console.log(`       TX : ${EXPLORER}/tx/${r.hash}`);
     if (actor) log_activity(evtType, actor, evtDetails, r.hash, jobId, amount);
     return r;
   } catch(e) {
-    console.log(`❌  ${e.message?.split("\n")[0]}`);
+    console.log(`âŒ  ${e.message?.split("\n")[0]}`);
     return null;
   }
 }
@@ -89,9 +89,9 @@ async function fund(deployer, to, amt, label) {
   try {
     const tx = await deployer.sendTransaction({ to, value: ethers.parseEther(amt) });
     const r  = await tx.wait();
-    console.log(`✅  TX: ${EXPLORER}/tx/${r.hash}`);
+    console.log(`âœ…  TX: ${EXPLORER}/tx/${r.hash}`);
   } catch(e) {
-    console.log(`❌  ${e.message?.split("\n")[0]}`);
+    console.log(`âŒ  ${e.message?.split("\n")[0]}`);
   }
 }
 
@@ -99,15 +99,15 @@ async function main() {
   const provider = new ethers.JsonRpcProvider(RPC);
   const deployer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
-  console.log("\n╔══════════════════════════════════════════════════════════════╗");
-  console.log("║              Lovelace Showcase — 20 Jobs                    ║");
-  console.log("╚══════════════════════════════════════════════════════════════╝");
+  console.log("\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—");
+  console.log("â•‘              Lovelace Showcase â€” 20 Jobs                    â•‘");
+  console.log("â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•");
   console.log(`  Contract : ${EXPLORER}/address/${CONTRACT}`);
   console.log(`  Deployer : ${EXPLORER}/address/${deployer.address}`);
   const bal = await provider.getBalance(deployer.address);
   console.log(`  Balance  : ${ethers.formatEther(bal)} MNT\n`);
 
-  // ── Create wallets ──────────────────────────────────────────────────────────
+  // â”€â”€ Create wallets â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   section("Creating Wallets");
   const W = {
     alice: ethers.Wallet.createRandom().connect(provider),
@@ -123,7 +123,7 @@ async function main() {
     console.log(`  ${persona.name.padEnd(14)} (${name}): ${EXPLORER}/address/${w.address}`);
   }
 
-  // ── Fund wallets ────────────────────────────────────────────────────────────
+  // â”€â”€ Fund wallets â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   section("Funding Wallets");
   await fund(deployer, W.alice.address,  "2.5",  "Aria Chen  (agent1)");
   await fund(deployer, W.bob.address,    "2.0",  "Marcus Webb (agent2)");
@@ -136,24 +136,24 @@ async function main() {
   const contract = new ethers.Contract(CONTRACT, ABI, provider);
   const nextId = async () => Number(await contract.jobCounter());
 
-  // ── Register Agents ─────────────────────────────────────────────────────────
+  // â”€â”€ Register Agents â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   section("Agent Registration & Staking");
 
-  await send("Register Aria — Security + Code Review (caps=6)", () =>
+  await send("Register Aria â€” Security + Code Review (caps=6)", () =>
     C(W.alice).registerAgent(
       "AriaBot",
       "Expert smart contract security auditor and code reviewer",
       6, ethers.parseEther("0.05"), { value: ethers.parseEther("0.2") }
     ), "alice", "register", "Aria Chen registered as a security agent with 0.2 MNT stake");
 
-  await send("Register Marcus — Research + Writing + Data (caps=168)", () =>
+  await send("Register Marcus â€” Research + Writing + Data (caps=168)", () =>
     C(W.bob).registerAgent(
       "MarcusAI",
       "Senior research, data analysis and technical writing agent",
       168, ethers.parseEther("0.02"), { value: ethers.parseEther("0.2") }
     ), "bob", "register", "Marcus Webb registered as a research agent with 0.2 MNT stake");
 
-  await send("Register Rex — General (caps=1)", () =>
+  await send("Register Rex â€” General (caps=1)", () =>
     C(W.frank).registerAgent(
       "RexBot",
       "General purpose automation agent",
@@ -174,14 +174,14 @@ async function main() {
 
   await send("Rex deactivates his agent listing", () =>
     C(W.frank).updateAgent("RexBot","General purpose automation agent",1,ethers.parseEther("0.01"),false),
-    "frank", "deactivate", "Rex Ortiz deactivated his agent — no longer taking jobs");
+    "frank", "deactivate", "Rex Ortiz deactivated his agent â€” no longer taking jobs");
 
-  // ── FLOW A: Happy path × 5 (Zoe hires Aria) ───────────────────────────────
-  section("Flow A — Happy Path × 5 (Zoe hires Aria)");
+  // â”€â”€ FLOW A: Happy path Ã— 5 (Zoe hires Aria) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow A â€” Happy Path Ã— 5 (Zoe hires Aria)");
 
   const happyJobs = [
     { desc: "Audit Lovelace.sol for reentrancy and access control issues", escrow: "0.12", score: 5, result: "ipfs://QmAriaAudit1ReentrancyReport" },
-    { desc: "Review ERC-20 token implementation — overflow and approval bugs", escrow: "0.10", score: 4, result: "ipfs://QmAriaAudit2ERC20Review" },
+    { desc: "Review ERC-20 token implementation â€” overflow and approval bugs", escrow: "0.10", score: 4, result: "ipfs://QmAriaAudit2ERC20Review" },
     { desc: "Security review of multisig wallet contract for DAO treasury", escrow: "0.15", score: 5, result: "ipfs://QmAriaAudit3MultisigReview" },
     { desc: "Gas optimisation report for AMM liquidity pool contract", escrow: "0.08", score: 3, result: "ipfs://QmAriaAudit4GasOptReport" },
     { desc: "Verify Merkle proof logic and bounds checking in airdrop contract", escrow: "0.10", score: 5, result: "ipfs://QmAriaAudit5MerkleVerify" },
@@ -191,30 +191,30 @@ async function main() {
     const j = happyJobs[i];
     const label = `A${i+1}`;
 
-    await send(`Job ${label} — Zoe creates security audit job (${j.escrow} MNT)`, () =>
+    await send(`Job ${label} â€” Zoe creates security audit job (${j.escrow} MNT)`, () =>
       C(W.carol).invokeAgent(W.alice.address, j.desc, 0, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther(j.escrow) }),
       "carol", "create_job", `Zoe Park hired Aria Chen: "${j.desc}"`, null, j.escrow);
     const jobId = await nextId();
 
-    await send(`Job ${label} — Aria submits audit report`, () =>
+    await send(`Job ${label} â€” Aria submits audit report`, () =>
       C(W.alice).updateJob(jobId, j.result, ethers.keccak256(ethers.toUtf8Bytes(j.result))),
       "alice", "submit_result", `Aria Chen delivered audit report for job #${jobId}`, jobId);
 
-    await send(`Job ${label} — Aria closes job`, () =>
+    await send(`Job ${label} â€” Aria closes job`, () =>
       C(W.alice).closeJob(jobId),
       "alice", "close_job", `Aria Chen marked job #${jobId} complete`, jobId);
 
-    await send(`Job ${label} — Zoe releases payment`, () =>
+    await send(`Job ${label} â€” Zoe releases payment`, () =>
       C(W.carol).releasePayment(jobId),
       "carol", "release_payment", `Zoe Park released ${j.escrow} MNT to Aria Chen for job #${jobId}`, jobId, j.escrow);
 
-    await send(`Job ${label} — Zoe rates Aria (${j.score}★)`, () =>
+    await send(`Job ${label} â€” Zoe rates Aria (${j.score}â˜…)`, () =>
       C(W.carol).rateAgent(jobId, j.score),
       "carol", "rate", `Zoe Park rated Aria Chen ${j.score}/5 stars for job #${jobId}`, jobId);
   }
 
-  // ── FLOW B: Liam hires Marcus × 3 ─────────────────────────────────────────
-  section("Flow B — Liam hires Marcus × 3");
+  // â”€â”€ FLOW B: Liam hires Marcus Ã— 3 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow B â€” Liam hires Marcus Ã— 3");
 
   const bobJobs = [
     { desc: "Research report: top 10 DeFi protocols on Mantle by TVL", escrow: "0.08", score: 4, result: "ipfs://QmMarcusResearch1DeFiReport" },
@@ -226,81 +226,81 @@ async function main() {
     const j = bobJobs[i];
     const label = `B${i+1}`;
 
-    await send(`Job ${label} — Liam creates research job (${j.escrow} MNT)`, () =>
+    await send(`Job ${label} â€” Liam creates research job (${j.escrow} MNT)`, () =>
       C(W.dave).invokeAgent(W.bob.address, j.desc, 0, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther(j.escrow) }),
       "dave", "create_job", `Liam Torres hired Marcus Webb: "${j.desc}"`, null, j.escrow);
     const jobId = await nextId();
 
-    await send(`Job ${label} — Marcus submits research`, () =>
+    await send(`Job ${label} â€” Marcus submits research`, () =>
       C(W.bob).updateJob(jobId, j.result, ethers.keccak256(ethers.toUtf8Bytes(j.result))),
       "bob", "submit_result", `Marcus Webb delivered research report for job #${jobId}`, jobId);
 
-    await send(`Job ${label} — Marcus closes job`, () =>
+    await send(`Job ${label} â€” Marcus closes job`, () =>
       C(W.bob).closeJob(jobId),
       "bob", "close_job", `Marcus Webb marked job #${jobId} complete`, jobId);
 
-    await send(`Job ${label} — Liam releases payment`, () =>
+    await send(`Job ${label} â€” Liam releases payment`, () =>
       C(W.dave).releasePayment(jobId),
       "dave", "release_payment", `Liam Torres released ${j.escrow} MNT to Marcus Webb for job #${jobId}`, jobId, j.escrow);
 
-    await send(`Job ${label} — Liam rates Marcus (${j.score}★)`, () =>
+    await send(`Job ${label} â€” Liam rates Marcus (${j.score}â˜…)`, () =>
       C(W.dave).rateAgent(jobId, j.score),
       "dave", "rate", `Liam Torres rated Marcus Webb ${j.score}/5 stars for job #${jobId}`, jobId);
   }
 
-  // ── FLOW C: Cancel × 2 ─────────────────────────────────────────────────────
-  section("Flow C — Client Cancels Jobs × 2");
+  // â”€â”€ FLOW C: Cancel Ã— 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow C â€” Client Cancels Jobs Ã— 2");
 
   for (let i = 1; i <= 2; i++) {
     const label = `C${i}`;
     const escrow = "0.05";
 
-    await send(`Job ${label} — Zoe creates job`, () =>
-      C(W.carol).invokeAgent(W.alice.address, `Preliminary scope review #${i} — cancelled before start`, 0, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther(escrow) }),
-      "carol", "create_job", `Zoe Park created job (later cancelled) — preliminary scope review #${i}`, null, escrow);
+    await send(`Job ${label} â€” Zoe creates job`, () =>
+      C(W.carol).invokeAgent(W.alice.address, `Preliminary scope review #${i} â€” cancelled before start`, 0, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther(escrow) }),
+      "carol", "create_job", `Zoe Park created job (later cancelled) â€” preliminary scope review #${i}`, null, escrow);
     const jobId = await nextId();
 
-    await send(`Job ${label} — Zoe cancels (full refund)`, () =>
+    await send(`Job ${label} â€” Zoe cancels (full refund)`, () =>
       C(W.carol).cancelJob(jobId),
       "carol", "cancel", `Zoe Park cancelled job #${jobId} and received full refund`, jobId);
   }
 
-  // ── FLOW D: Agent rejects × 2 ──────────────────────────────────────────────
-  section("Flow D — Agent Rejects Jobs × 2");
+  // â”€â”€ FLOW D: Agent rejects Ã— 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow D â€” Agent Rejects Jobs Ã— 2");
 
   const rejectDescs = [
-    "Analyse proprietary closed-source protocol — rejected (out of scope)",
-    "Legal review of DAO governance documents — rejected (not AI-suitable)",
+    "Analyse proprietary closed-source protocol â€” rejected (out of scope)",
+    "Legal review of DAO governance documents â€” rejected (not AI-suitable)",
   ];
 
   for (let i = 1; i <= 2; i++) {
     const label = `D${i}`;
     const escrow = "0.05";
 
-    await send(`Job ${label} — Liam creates job`, () =>
+    await send(`Job ${label} â€” Liam creates job`, () =>
       C(W.dave).invokeAgent(W.bob.address, rejectDescs[i-1], 0, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther(escrow) }),
       "dave", "create_job", `Liam Torres created job: "${rejectDescs[i-1]}"`, null, escrow);
     const jobId = await nextId();
 
-    await send(`Job ${label} — Marcus rejects (client refunded)`, () =>
+    await send(`Job ${label} â€” Marcus rejects (client refunded)`, () =>
       C(W.bob).rejectJob(jobId),
-      "bob", "reject", `Marcus Webb rejected job #${jobId} — client refunded`, jobId);
+      "bob", "reject", `Marcus Webb rejected job #${jobId} â€” client refunded`, jobId);
   }
 
-  // ── FLOW E: Dispute + arbiter × 2 ─────────────────────────────────────────
-  section("Flow E — Disputes + Arbiter Resolution × 2");
+  // â”€â”€ FLOW E: Dispute + arbiter Ã— 2 â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow E â€” Disputes + Arbiter Resolution Ã— 2");
 
   const disputes = [
     {
       label: "E1", escrow: "0.20",
-      desc: "Full DeFi protocol audit — 3 contracts, disputed on scope",
+      desc: "Full DeFi protocol audit â€” 3 contracts, disputed on scope",
       clientSplit: 40, agentSplit: 50, arbiterPct: 10,
       result: "ipfs://QmDisputeE1PartialAudit",
       context: "Client claimed incomplete audit; Sage Winters ruled partial completion"
     },
     {
       label: "E2", escrow: "0.15",
-      desc: "Machine learning model benchmarking report — disputed on quality",
+      desc: "Machine learning model benchmarking report â€” disputed on quality",
       clientSplit: 20, agentSplit: 70, arbiterPct: 10,
       result: "ipfs://QmDisputeE2MLBenchmark",
       context: "Client unhappy with methodology; Sage Winters ruled mostly in agent's favour"
@@ -314,82 +314,82 @@ async function main() {
     const agentShare  = rem * BigInt(d.agentSplit)  / BigInt(d.agentSplit + d.clientSplit);
     const clientShare = rem - agentShare;
 
-    await send(`Job ${d.label} — Zoe creates job with arbiter (${d.escrow} MNT, 10% arbiter fee)`, () =>
+    await send(`Job ${d.label} â€” Zoe creates job with arbiter (${d.escrow} MNT, 10% arbiter fee)`, () =>
       C(W.carol).invokeAgent(W.alice.address, d.desc, 0, W.eve.address, 1000, ethers.ZeroHash, { value: escrowWei }),
       "carol", "create_job", `Zoe Park created job with Sage Winters as arbiter: "${d.desc}"`, null, d.escrow);
     const jobId = await nextId();
 
-    await send(`Job ${d.label} — Aria submits result`, () =>
+    await send(`Job ${d.label} â€” Aria submits result`, () =>
       C(W.alice).updateJob(jobId, d.result, ethers.keccak256(ethers.toUtf8Bytes(d.result))),
       "alice", "submit_result", `Aria Chen delivered result for disputed job #${jobId}`, jobId);
 
-    await send(`Job ${d.label} — Aria closes job`, () =>
+    await send(`Job ${d.label} â€” Aria closes job`, () =>
       C(W.alice).closeJob(jobId),
       "alice", "close_job", `Aria Chen marked job #${jobId} complete`, jobId);
 
-    await send(`Job ${d.label} — Zoe raises dispute`, () =>
+    await send(`Job ${d.label} â€” Zoe raises dispute`, () =>
       C(W.carol).raiseDispute(jobId),
-      "carol", "dispute", `Zoe Park raised a dispute on job #${jobId} — ${d.context}`, jobId);
+      "carol", "dispute", `Zoe Park raised a dispute on job #${jobId} â€” ${d.context}`, jobId);
 
-    await send(`Job ${d.label} — Sage resolves: client ${d.clientSplit}% / agent ${d.agentSplit}% / arbiter 10%`, () =>
+    await send(`Job ${d.label} â€” Sage resolves: client ${d.clientSplit}% / agent ${d.agentSplit}% / arbiter 10%`, () =>
       C(W.eve).resolveDisputeByArbiter(jobId, clientShare, agentShare),
       "eve", "resolve_dispute", `Sage Winters resolved dispute #${jobId}: ${d.agentSplit}% to Aria, ${d.clientSplit}% to Zoe, 10% arbiter fee`, jobId);
   }
 
-  // ── FLOW F: Task Delegation ─────────────────────────────────────────────────
-  section("Flow F — Task Delegation (Aria delegates to Marcus)");
+  // â”€â”€ FLOW F: Task Delegation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow F â€” Task Delegation (Aria delegates to Marcus)");
 
-  await send("Job F1 — Liam creates parent job for Aria (0.20 MNT)", () =>
+  await send("Job F1 â€” Liam creates parent job for Aria (0.20 MNT)", () =>
     C(W.dave).invokeAgent(W.alice.address, "Comprehensive DeFi protocol analysis: security audit + market research report", 0, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther("0.20") }),
     "dave", "create_job", "Liam Torres hired Aria Chen for comprehensive DeFi protocol analysis", null, "0.20");
   const parentId = await nextId();
 
-  await send("Job F1 — Aria delegates research sub-task to Marcus (0.05 MNT)", () =>
+  await send("Job F1 â€” Aria delegates research sub-task to Marcus (0.05 MNT)", () =>
     C(W.alice).delegateTask(parentId, W.bob.address, "Research component: DeFi protocol market analysis and TVL breakdown", { value: ethers.parseEther("0.05") }),
     "alice", "delegate", `Aria Chen delegated research sub-task to Marcus Webb (job #${parentId})`, parentId, "0.05");
   const childId = await nextId();
 
-  await send("Job F1 child — Marcus submits + closes sub-task", async () => {
+  await send("Job F1 child â€” Marcus submits + closes sub-task", async () => {
     await (await C(W.bob).updateJob(childId, "ipfs://QmMarcusSubResearchDeFiAnalysis", ethers.keccak256(ethers.toUtf8Bytes("ipfs://QmMarcusSubResearchDeFiAnalysis")))).wait();
     return C(W.bob).closeJob(childId);
   }, "bob", "submit_result", `Marcus Webb completed delegated research sub-task #${childId}`, childId);
 
-  await send("Job F1 child — Aria releases payment to Marcus", () =>
+  await send("Job F1 child â€” Aria releases payment to Marcus", () =>
     C(W.alice).releasePayment(childId),
     "alice", "release_payment", `Aria Chen released payment to Marcus Webb for sub-task #${childId}`, childId, "0.05");
 
-  await send("Job F1 parent — Aria submits combined audit + research", () =>
+  await send("Job F1 parent â€” Aria submits combined audit + research", () =>
     C(W.alice).updateJob(parentId, "ipfs://QmAriaFullDeFiAnalysisCombined", ethers.keccak256(ethers.toUtf8Bytes("ipfs://QmAriaFullDeFiAnalysisCombined"))),
     "alice", "submit_result", `Aria Chen delivered combined security + research report for job #${parentId}`, parentId);
 
-  await send("Job F1 parent — Aria closes parent job", () =>
+  await send("Job F1 parent â€” Aria closes parent job", () =>
     C(W.alice).closeJob(parentId),
     "alice", "close_job", `Aria Chen marked parent job #${parentId} complete`, parentId);
 
-  await send("Job F1 parent — Liam releases payment to Aria", () =>
+  await send("Job F1 parent â€” Liam releases payment to Aria", () =>
     C(W.dave).releasePayment(parentId),
     "dave", "release_payment", `Liam Torres released 0.20 MNT to Aria Chen for job #${parentId}`, parentId, "0.20");
 
-  await send("Job F1 parent — Liam rates Aria (5★)", () =>
+  await send("Job F1 parent â€” Liam rates Aria (5â˜…)", () =>
     C(W.dave).rateAgent(parentId, 5),
     "dave", "rate", `Liam Torres rated Aria Chen 5/5 stars for the comprehensive analysis`, parentId);
 
-  // ── FLOW G: Auto-release setup ──────────────────────────────────────────────
-  section("Flow G — Auto-Release Job (1h timeout)");
+  // â”€â”€ FLOW G: Auto-release setup â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  section("Flow G â€” Auto-Release Job (1h timeout)");
 
-  await send("Job G1 — Zoe creates job with 1h auto-release (0.05 MNT)", () =>
-    C(W.carol).invokeAgent(W.alice.address, "Quick security check on storage layout — auto-releases in 1 hour", 3600, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther("0.05") }),
+  await send("Job G1 â€” Zoe creates job with 1h auto-release (0.05 MNT)", () =>
+    C(W.carol).invokeAgent(W.alice.address, "Quick security check on storage layout â€” auto-releases in 1 hour", 3600, ethers.ZeroAddress, 0, ethers.ZeroHash, { value: ethers.parseEther("0.05") }),
     "carol", "create_job", "Zoe Park created an auto-release job (1h timeout) for Aria Chen", null, "0.05");
   const autoJobId = await nextId();
 
-  await send("Job G1 — Aria submits + closes result", async () => {
+  await send("Job G1 â€” Aria submits + closes result", async () => {
     await (await C(W.alice).updateJob(autoJobId, "ipfs://QmAriaAutoReleaseStorageCheck", ethers.keccak256(ethers.toUtf8Bytes("ipfs://QmAriaAutoReleaseStorageCheck")))).wait();
     return C(W.alice).closeJob(autoJobId);
-  }, "alice", "submit_result", `Aria Chen delivered result for auto-release job #${autoJobId} — payment releases in 1h`, autoJobId);
+  }, "alice", "submit_result", `Aria Chen delivered result for auto-release job #${autoJobId} â€” payment releases in 1h`, autoJobId);
 
-  console.log(`\n  ℹ️  Job G1 (#${autoJobId}) is in Completed state — auto-releases after 1h\n`);
+  console.log(`\n  â„¹ï¸  Job G1 (#${autoJobId}) is in Completed state â€” auto-releases after 1h\n`);
 
-  // ── Write activity data ─────────────────────────────────────────────────────
+  // â”€â”€ Write activity data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   section("Writing Activity Data");
 
   // Enrich with on-chain job data
@@ -458,19 +458,19 @@ async function main() {
 
   const outPath = path.join(__dirname, "activity-data.json");
   fs.writeFileSync(outPath, JSON.stringify(outputData, null, 2));
-  console.log(`  ✅ Written to: ${outPath}`);
+  console.log(`  âœ… Written to: ${outPath}`);
 
-  // ── Final summary ───────────────────────────────────────────────────────────
-  console.log("\n╔══════════════════════════════════════════════════════════════╗");
-  console.log("║                  Run Complete ✅                            ║");
-  console.log("╚══════════════════════════════════════════════════════════════╝");
+  // â”€â”€ Final summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  console.log("\nâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—");
+  console.log("â•‘                  Run Complete âœ…                            â•‘");
+  console.log("â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•");
   console.log(`  Total activity events : ${activity.length}`);
   console.log(`  Jobs tracked          : ${jobIds.length}`);
   console.log(`  Contract              : ${EXPLORER}/address/${CONTRACT}`);
 
   const deployerFinal = await provider.getBalance(deployer.address);
   console.log(`  Deployer remaining    : ${ethers.formatEther(deployerFinal)} MNT`);
-  console.log("─".repeat(62) + "\n");
+  console.log("â”€".repeat(62) + "\n");
 }
 
 main().catch(e => { console.error(e); process.exitCode = 1; });

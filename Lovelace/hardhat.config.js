@@ -4,10 +4,11 @@ require("dotenv").config();
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: {
-    version: "0.8.24",
+    version: "0.8.25",
     settings: {
       optimizer: { enabled: true, runs: 200 },
-      viaIR: true
+      viaIR: true,
+      evmVersion: "cancun"
     }
   },
   networks: {
@@ -19,7 +20,7 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      mantleSepolia: process.env.MANTLESCAN_API_KEY || "placeholder"
+      mantleSepolia: process.env.MANTLESCAN_API_KEY || "verifytoken"
     },
     customChains: [
       {
@@ -31,5 +32,8 @@ module.exports = {
         }
       }
     ]
+  },
+  sourcify: {
+    enabled: true
   }
 };

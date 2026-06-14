@@ -1,8 +1,8 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Lovelace — Mantle Sepolia Frontend
-// ─────────────────────────────────────────────────────────────────────────────
+﻿// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Lovelace â€” Mantle Sepolia Frontend
+// â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-const CONTRACT_ADDRESS = "0xCE43B018cCc600703890c84BdEd478129A189043";
+const CONTRACT_ADDRESS = "0xb9B3727B5CE642C8D364A45529D6dd682D6D2687";
 const AGENTS_API       = "/api/agents";
 const EXPLORER         = "https://explorer.sepolia.mantle.xyz";
 
@@ -59,7 +59,7 @@ const ABI = [
 const JOB_STATUS = ["Pending", "InProgress", "Completed", "Disputed", "Cancelled", "Finalized"];
 const CAP_NAMES  = { 1:"General", 2:"Code Review", 4:"Security Audit", 8:"Data Analysis", 16:"Translation", 32:"Research", 64:"Writing", 128:"Design" };
 
-// ─── State ───
+// â”€â”€â”€ State â”€â”€â”€
 let provider, signer, contract, account;
 let allAgentAddresses = [];
 let allJobs = [];
@@ -67,7 +67,7 @@ let selectedAgentForJob = null;
 let selectedRating = 5;
 let currentJobFilter = "all";
 
-// ─── Init ───
+// â”€â”€â”€ Init â”€â”€â”€
 document.addEventListener("DOMContentLoaded", () => {
   if (CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
     document.getElementById("contractAddrDisplay").innerHTML =
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// ─── Browser Notifications ───
+// â”€â”€â”€ Browser Notifications â”€â”€â”€
 function requestNotificationPermission() {
   if ("Notification" in window && Notification.permission === "default") {
     Notification.requestPermission();
@@ -96,13 +96,13 @@ function sendNotification(title, body, tag) {
   }
 }
 
-// ─── Wallet ───
+// â”€â”€â”€ Wallet â”€â”€â”€
 async function connectWallet() {
   if (!window.ethereum) {
     const btn = document.getElementById("connectBtn");
     btn.textContent = "Install MetaMask";
     btn.onclick = () => window.open("https://metamask.io/download/", "_blank");
-    showToast("No wallet found — click the button to install MetaMask.", "error");
+    showToast("No wallet found â€” click the button to install MetaMask.", "error");
     return;
   }
   try {
@@ -167,7 +167,7 @@ async function onAccountChange() {
   await loadMyJobs();
 }
 
-// ─── Stats ───
+// â”€â”€â”€ Stats â”€â”€â”€
 async function refreshStats() {
   if (!provider) return;
   try {
@@ -181,7 +181,7 @@ async function refreshStats() {
   } catch (_) {}
 }
 
-// ─── Registration check ───
+// â”€â”€â”€ Registration check â”€â”€â”€
 async function checkRegistrationStatus() {
   if (!contract || !account) return;
   try {
@@ -195,7 +195,7 @@ async function checkRegistrationStatus() {
   } catch (_) {}
 }
 
-// ─── Agent loading ───
+// â”€â”€â”€ Agent loading â”€â”€â”€
 // Loads agents from the /api/agents endpoint (no wallet needed),
 // then enriches with live on-chain data when a wallet is connected.
 async function loadAgents() {
@@ -301,18 +301,18 @@ function agentCardFromDb(a) {
     <div class="agent-desc">${escHtml(a.description || "")}</div>
     <div style="margin-bottom:8px;">${capTags(Number(a.capabilities || 0))}</div>
     <div class="agent-meta">
-      <span class="agent-price">${a.price_wei || "—"} MNT</span>
+      <span class="agent-price">${a.price_wei || "â€”"} MNT</span>
       <span style="color:var(--text-dim);font-size:0.68rem;">${a.jobs_completed || 0} jobs</span>
     </div>
     <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);">${shortAddr(a.address)}</div>
-    ${!a.is_active ? '<div style="margin-top:6px;color:var(--danger);font-size:0.7rem;">⚠ Inactive</div>' : ''}
+    ${!a.is_active ? '<div style="margin-top:6px;color:var(--danger);font-size:0.7rem;">âš  Inactive</div>' : ''}
   `;
   return div;
 }
 
 function agentCard(a, addr, selectable, ctx) {
-  const avgRating = a.ratingCount > 0 ? (Number(a.ratingSum) / Number(a.ratingCount)).toFixed(1) : "—";
-  const stars     = a.ratingCount > 0 ? "★".repeat(Math.round(Number(a.ratingSum) / Number(a.ratingCount))) : "—";
+  const avgRating = a.ratingCount > 0 ? (Number(a.ratingSum) / Number(a.ratingCount)).toFixed(1) : "â€”";
+  const stars     = a.ratingCount > 0 ? "â˜…".repeat(Math.round(Number(a.ratingSum) / Number(a.ratingCount))) : "â€”";
   const caps      = capTags(Number(a.capabilities));
 
   const div = document.createElement("div");
@@ -327,7 +327,7 @@ function agentCard(a, addr, selectable, ctx) {
       <span style="color:var(--text-dim);font-size:0.68rem;">${Number(a.jobsCompleted)} jobs</span>
     </div>
     <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);">${shortAddr(addr)}</div>
-    ${!a.isActive ? '<div style="margin-top:6px;color:var(--danger);font-size:0.7rem;">⚠ Inactive</div>' : ''}
+    ${!a.isActive ? '<div style="margin-top:6px;color:var(--danger);font-size:0.7rem;">âš  Inactive</div>' : ''}
   `;
 
   if (selectable) div.onclick = () => selectAgentForJob(addr, a.name, div);
@@ -349,7 +349,7 @@ function selectAgentForJob(addr, name, el) {
   document.getElementById("selectedAgentLabel").textContent = `Selected: ${name} (${shortAddr(addr)})`;
 }
 
-// ─── Register Agent ───
+// â”€â”€â”€ Register Agent â”€â”€â”€
 async function registerAgent() {
   if (!contract) { showToast("Connect wallet first.", "error"); return; }
   const name  = document.getElementById("regName").value.trim();
@@ -424,7 +424,7 @@ function getCaps() {
   return caps;
 }
 
-// ─── Create Job ───
+// â”€â”€â”€ Create Job â”€â”€â”€
 async function createJob() {
   if (!contract) { showToast("Connect wallet first.", "error"); return; }
   const agentAddr = document.getElementById("selectedAgent").value;
@@ -456,7 +456,7 @@ async function createJob() {
   }
 }
 
-// ─── My Jobs ───
+// â”€â”€â”€ My Jobs â”€â”€â”€
 async function loadMyJobs() {
   if (!contract || !account) return;
   const list = document.getElementById("jobsList");
@@ -519,12 +519,12 @@ function buildJobCard(job) {
   div.className = "job-card";
   div.innerHTML = `
     <div class="job-header">
-      <span class="job-id">Job #${job.id} • ${isClient ? "You are Client" : "You are Agent"}</span>
+      <span class="job-id">Job #${job.id} â€¢ ${isClient ? "You are Client" : "You are Agent"}</span>
       <span class="status-badge status-${status}">${status}</span>
     </div>
     <div class="job-desc">${escHtml(job.description)}</div>
     ${job.resultUri ? `<div style="font-size:0.75rem;color:var(--mantle);margin-bottom:6px;">Result: <a class="tx-link" href="${escHtml(job.resultUri)}" target="_blank">${escHtml(job.resultUri)}</a></div>` : ""}
-    ${hasResult && status === "Completed" ? `<div style="font-size:0.72rem;margin-bottom:6px;color:${job.resultAttested ? "#10b981" : "var(--text-dim)"};">${job.resultAttested ? "✅ Result attested" : "⏳ Awaiting attestation"}</div>` : ""}
+    ${hasResult && status === "Completed" ? `<div style="font-size:0.72rem;margin-bottom:6px;color:${job.resultAttested ? "#10b981" : "var(--text-dim)"};">${job.resultAttested ? "âœ… Result attested" : "â³ Awaiting attestation"}</div>` : ""}
     <div class="job-meta">
       <div><div class="meta-item">Escrow</div><div class="meta-value">${ethers.formatEther(job.escrowAmount)} MNT</div></div>
       <div><div class="meta-item">Agent</div><div class="meta-value">${shortAddr(job.agent)}</div></div>
@@ -578,7 +578,7 @@ function buildJobActions(el, job, isClient, isAgent, status, hasResult) {
   }
 }
 
-// ─── Job Actions ───
+// â”€â”€â”€ Job Actions â”€â”€â”€
 async function rejectJob(jobId) {
   await contractCall(() => contract.rejectJob(jobId), `Job #${jobId} rejected.`);
 }
@@ -616,7 +616,7 @@ async function contractCall(fn, successMsg) {
   }
 }
 
-// ─── Submit Result Modal ───
+// â”€â”€â”€ Submit Result Modal â”€â”€â”€
 function openSubmitResult(jobId) {
   document.getElementById("resultJobId").value   = jobId;
   document.getElementById("resultUriInput").value = "";
@@ -637,7 +637,7 @@ async function submitResult() {
   );
 }
 
-// ─── Delegate Modal ───
+// â”€â”€â”€ Delegate Modal â”€â”€â”€
 function openDelegate(jobId) {
   document.getElementById("delegateParentId").value  = jobId;
   document.getElementById("delegateSubAgent").value  = "";
@@ -664,7 +664,7 @@ async function delegateTask() {
   }
 }
 
-// ─── Rate Modal ───
+// â”€â”€â”€ Rate Modal â”€â”€â”€
 function openRate(jobId) {
   document.getElementById("rateJobId").value = jobId;
   selectStar(5);
@@ -687,7 +687,7 @@ async function submitRating() {
   await contractCall(() => contract.rateAgent(jobId, score), `Agent rated ${score}/5 for job #${jobId}!`);
 }
 
-// ─── Event Subscriptions + Notifications ───
+// â”€â”€â”€ Event Subscriptions + Notifications â”€â”€â”€
 function subscribeToEvents() {
   if (!contract) return;
   const log = document.getElementById("eventLog");
@@ -706,7 +706,7 @@ function subscribeToEvents() {
   };
 
   contract.on("AgentRegistered", (owner, name) => {
-    addLog("AgentRegistered", `${shortAddr(owner)} — ${name}`);
+    addLog("AgentRegistered", `${shortAddr(owner)} â€” ${name}`);
     refreshStats();
   });
 
@@ -731,7 +731,7 @@ function subscribeToEvents() {
       if (job.client.toLowerCase() === account.toLowerCase()) {
         sendNotification(
           `Job #${jobId} completed`,
-          "Your agent delivered the result — review and release payment.",
+          "Your agent delivered the result â€” review and release payment.",
           `job-complete-${jobId}`
         );
         loadMyJobs();
@@ -740,7 +740,7 @@ function subscribeToEvents() {
   });
 
   contract.on("PaymentReleased", (jobId, agent, amount) => {
-    addLog("PaymentReleased", `#${jobId} → ${shortAddr(agent)}: ${ethers.formatEther(amount)} MNT`);
+    addLog("PaymentReleased", `#${jobId} â†’ ${shortAddr(agent)}: ${ethers.formatEther(amount)} MNT`);
     if (agent.toLowerCase() === account.toLowerCase()) {
       sendNotification(
         `Payment received!`,
@@ -767,7 +767,7 @@ function subscribeToEvents() {
   });
 
   contract.on("TaskDelegated", (parent, child, subAgent) => {
-    addLog("TaskDelegated", `Parent #${parent} → Child #${child} → ${shortAddr(subAgent)}`);
+    addLog("TaskDelegated", `Parent #${parent} â†’ Child #${child} â†’ ${shortAddr(subAgent)}`);
     if (subAgent.toLowerCase() === account.toLowerCase()) {
       sendNotification(
         `Delegated task #${child}`,
@@ -799,13 +799,13 @@ function clearLog() {
     '<div class="log-entry"><span class="log-time">--:--:--</span><span class="log-event">SYSTEM</span><span class="log-detail">Log cleared.</span></div>';
 }
 
-// ─── Build tab ───
+// â”€â”€â”€ Build tab â”€â”€â”€
 function copyCode() {
   const code = document.getElementById("agentCodeBlock").innerText;
   navigator.clipboard.writeText(code).then(() => showToast("Code copied!", "success"));
 }
 
-// ─── Tabs ───
+// â”€â”€â”€ Tabs â”€â”€â”€
 function showTab(name) {
   document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
   document.querySelectorAll(".nav-tab").forEach(t => t.classList.remove("active"));
@@ -817,7 +817,7 @@ function showTab(name) {
   if (name === "create-job") loadAgentsForJobSelect();
 }
 
-// ─── Modals ───
+// â”€â”€â”€ Modals â”€â”€â”€
 function openModal(id)  { document.getElementById(id).classList.add("open"); }
 function closeModal(id) { document.getElementById(id).classList.remove("open"); }
 
@@ -825,7 +825,7 @@ document.addEventListener("click", (e) => {
   if (e.target.classList.contains("modal-overlay")) e.target.classList.remove("open");
 });
 
-// ─── Toast ───
+// â”€â”€â”€ Toast â”€â”€â”€
 let toastTimer;
 function showToast(msg, type = "info") {
   const existing = document.querySelector(".toast");
@@ -838,9 +838,9 @@ function showToast(msg, type = "info") {
   toastTimer = setTimeout(() => t.remove(), 4000);
 }
 
-// ─── Helpers ───
+// â”€â”€â”€ Helpers â”€â”€â”€
 function shortAddr(addr) {
-  if (!addr) return "—";
+  if (!addr) return "â€”";
   return addr.slice(0, 6) + "..." + addr.slice(-4);
 }
 

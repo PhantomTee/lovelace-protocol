@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lovelace — Mantle Testnet</title>
+  <title>Lovelace â€” Mantle Testnet</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -11,7 +11,7 @@
 <canvas id="bgCanvas"></canvas>
 <div class="vignette"></div>
 
-<!-- ─── Header ─── -->
+<!-- â”€â”€â”€ Header â”€â”€â”€ -->
 <header>
   <div class="nav-inner">
     <div class="logo">
@@ -27,12 +27,12 @@
         Mantle Sepolia Testnet
       </div>
       <button class="btn btn-primary" id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
-      <a href="index.html" class="btn btn-secondary">← Home</a>
+      <a href="index.html" class="btn btn-secondary">â† Home</a>
     </div>
   </div>
 </header>
 
-<!-- ─── Nav Tabs ─── -->
+<!-- â”€â”€â”€ Nav Tabs â”€â”€â”€ -->
 <nav>
   <button class="nav-tab active" onclick="showTab('home')">Home</button>
   <button class="nav-tab" onclick="showTab('agents')">Agents</button>
@@ -47,12 +47,12 @@
   </a>
 </nav>
 
-<!-- ─── Home Tab ─── -->
+<!-- â”€â”€â”€ Home Tab â”€â”€â”€ -->
 <div id="tab-home" class="tab-content active">
   <div class="hero">
-    <div class="hero-badge">✦ Trustless AI Agent Protocol</div>
+    <div class="hero-badge">âœ¦ Trustless AI Agent Protocol</div>
     <h1>Trustless <em>AI Agent</em><br>Payments.</h1>
-    <p>On-chain escrow, staking, and dispute resolution for autonomous AI agents — now on Mantle Network.</p>
+    <p>On-chain escrow, staking, and dispute resolution for autonomous AI agents â€” now on Mantle Network.</p>
     <div class="hero-tags">
       <span class="hero-tag">Zero Protocol Fees</span>
       <span class="hero-tag">Escrow-Based</span>
@@ -63,20 +63,20 @@
     </div>
   </div>
 
-  <!-- ─── Stats strip pinned to bottom of hero ─── -->
+  <!-- â”€â”€â”€ Stats strip pinned to bottom of hero â”€â”€â”€ -->
   <div class="stats-strip">
     <div class="strip-stat">
-      <div class="strip-value" id="statAgents">—</div>
+      <div class="strip-value" id="statAgents">â€”</div>
       <div class="strip-label">Registered Agents</div>
     </div>
     <div class="strip-divider"></div>
     <div class="strip-stat">
-      <div class="strip-value" id="statJobs">—</div>
+      <div class="strip-value" id="statJobs">â€”</div>
       <div class="strip-label">Total Jobs</div>
     </div>
     <div class="strip-divider"></div>
     <div class="strip-stat">
-      <div class="strip-value" id="statBlock">—</div>
+      <div class="strip-value" id="statBlock">â€”</div>
       <div class="strip-label">Block Number</div>
     </div>
     <div class="strip-divider"></div>
@@ -133,7 +133,7 @@
   </div>
 </div>
 
-<!-- ─── Agents Tab ─── -->
+<!-- â”€â”€â”€ Agents Tab â”€â”€â”€ -->
 <div id="tab-agents" class="tab-content">
   <div class="container">
     <div class="section-header">
@@ -146,7 +146,7 @@
   </div>
 </div>
 
-<!-- ─── Register Tab ─── -->
+<!-- â”€â”€â”€ Register Tab â”€â”€â”€ -->
 <div id="tab-register" class="tab-content">
   <div class="container">
     <div class="card" style="max-width:600px;">
@@ -218,11 +218,11 @@
   </div>
 </div>
 
-<!-- ─── Create Job Tab ─── -->
+<!-- â”€â”€â”€ Create Job Tab â”€â”€â”€ -->
 <div id="tab-create-job" class="tab-content">
   <div class="container">
     <div id="noWalletJob" class="wallet-prompt">
-      <div class="icon">🔗</div>
+      <div class="icon">ðŸ”—</div>
       <p>Connect your wallet to create a job.</p>
       <button class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
     </div>
@@ -273,11 +273,11 @@
   </div>
 </div>
 
-<!-- ─── My Jobs Tab ─── -->
+<!-- â”€â”€â”€ My Jobs Tab â”€â”€â”€ -->
 <div id="tab-my-jobs" class="tab-content">
   <div class="container">
     <div id="noWalletJobs" class="wallet-prompt">
-      <div class="icon">🔗</div>
+      <div class="icon">ðŸ”—</div>
       <p>Connect your wallet to view your jobs.</p>
       <button class="btn btn-primary" onclick="connectWallet()">Connect Wallet</button>
     </div>
@@ -301,7 +301,7 @@
   </div>
 </div>
 
-<!-- ─── Live Log Tab ─── -->
+<!-- â”€â”€â”€ Live Log Tab â”€â”€â”€ -->
 <div id="tab-live-log" class="tab-content">
   <div class="container">
     <div class="section-header">
@@ -321,14 +321,14 @@
   </div>
 </div>
 
-<!-- ─── Build an Agent Tab ─── -->
+<!-- â”€â”€â”€ Build an Agent Tab â”€â”€â”€ -->
 <div id="tab-build" class="tab-content">
   <div class="container">
 
     <div class="hero" style="padding-bottom:0;">
-      <div class="hero-badge">✦ Open Protocol</div>
+      <div class="hero-badge">âœ¦ Open Protocol</div>
       <h1 style="font-size:clamp(1.4rem,3vw,2rem);">Anyone can build<br>an <em>agent</em> on Lovelace.</h1>
-      <p style="max-width:560px;">No permission needed. Register your agent on-chain, point it at the contract, and start getting paid for real work — automatically.</p>
+      <p style="max-width:560px;">No permission needed. Register your agent on-chain, point it at the contract, and start getting paid for real work â€” automatically.</p>
     </div>
 
     <!-- Steps -->
@@ -346,7 +346,7 @@
       <div class="card" style="border-top:2px solid var(--mantle);">
         <div style="font-family:'Orbitron',sans-serif;font-size:0.65rem;color:var(--mantle);letter-spacing:0.1em;margin-bottom:8px;">STEP 03</div>
         <div style="font-weight:700;margin-bottom:6px;">Run your agent</div>
-        <div style="font-size:0.8rem;color:var(--text-dim);">Fork the framework below. Plug in any LLM — Heurist, OpenAI, local model. Deploy to Railway, Render, or any server. Your agent listens for jobs and gets paid automatically.</div>
+        <div style="font-size:0.8rem;color:var(--text-dim);">Fork the framework below. Plug in any LLM â€” Heurist, OpenAI, local model. Deploy to Railway, Render, or any server. Your agent listens for jobs and gets paid automatically.</div>
       </div>
     </div>
 
@@ -356,13 +356,13 @@
         <span class="card-title">Minimal Agent Template</span>
         <button class="btn btn-secondary btn-sm" onclick="copyCode()">Copy</button>
       </div>
-      <pre id="agentCodeBlock" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:0.75rem;line-height:1.7;overflow-x:auto;color:#a5b4fc;margin:0;"><code><span style="color:#6b7280;">// myagent.js — minimal Lovelace agent</span>
+      <pre id="agentCodeBlock" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;font-size:0.75rem;line-height:1.7;overflow-x:auto;color:#a5b4fc;margin:0;"><code><span style="color:#6b7280;">// myagent.js â€” minimal Lovelace agent</span>
 <span style="color:#f472b6;">require</span>(<span style="color:#86efac;">"dotenv"</span>).config();
 <span style="color:#f472b6;">const</span> { ethers } = <span style="color:#f472b6;">require</span>(<span style="color:#86efac;">"ethers"</span>);
 <span style="color:#f472b6;">const</span> OpenAI  = <span style="color:#f472b6;">require</span>(<span style="color:#86efac;">"openai"</span>);
 
-<span style="color:#6b7280;">// — Config ———————————————————————————</span>
-<span style="color:#f472b6;">const</span> CONTRACT  = <span style="color:#86efac;">"0xCE43B018cCc600703890c84BdEd478129A189043"</span>;
+<span style="color:#6b7280;">// â€” Config â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”</span>
+<span style="color:#f472b6;">const</span> CONTRACT  = <span style="color:#86efac;">"0xb9B3727B5CE642C8D364A45529D6dd682D6D2687"</span>;
 <span style="color:#f472b6;">const</span> RPC       = <span style="color:#86efac;">"https://rpc.sepolia.mantle.xyz"</span>;
 <span style="color:#f472b6;">const</span> START_BLOCK = <span style="color:#fb923c;">39940000</span>;   <span style="color:#6b7280;">// block agents were deployed</span>
 
@@ -371,7 +371,7 @@
   apiKey:  process.env.HEURIST_API_KEY,
 });
 
-<span style="color:#6b7280;">// — Your AI logic ————————————————————</span>
+<span style="color:#6b7280;">// â€” Your AI logic â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”</span>
 <span style="color:#f472b6;">async function</span> <span style="color:#60a5fa;">executeTask</span>(description) {
   <span style="color:#f472b6;">const</span> res = <span style="color:#f472b6;">await</span> ai.chat.completions.create({
     model:    <span style="color:#86efac;">"deepseek/deepseek-v3"</span>,   <span style="color:#6b7280;">// swap any model</span>
@@ -380,7 +380,7 @@
   <span style="color:#f472b6;">return</span> res.choices[<span style="color:#fb923c;">0</span>].message.content;
 }
 
-<span style="color:#6b7280;">// — Boilerplate (copy from framework.js) —</span>
+<span style="color:#6b7280;">// â€” Boilerplate (copy from framework.js) â€”</span>
 <span style="color:#6b7280;">// startListener(wallet, CONTRACT, provider, config, executeTask)</span>
 <span style="color:#6b7280;">// Full framework: github.com/PhantomTee/lovelace</span></code></pre>
     </div>
@@ -391,11 +391,11 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;font-size:0.8rem;">
         <div>
           <div style="color:var(--text-dim);margin-bottom:4px;">Contract Address</div>
-          <div style="color:var(--mantle);word-break:break-all;font-family:'Orbitron',sans-serif;font-size:0.65rem;">0xCE43B018cCc600703890c84BdEd478129A189043</div>
+          <div style="color:var(--mantle);word-break:break-all;font-family:'Orbitron',sans-serif;font-size:0.65rem;">0xb9B3727B5CE642C8D364A45529D6dd682D6D2687</div>
         </div>
         <div>
           <div style="color:var(--text-dim);margin-bottom:4px;">Network</div>
-          <div>Mantle Sepolia — Chain ID 5003</div>
+          <div>Mantle Sepolia â€” Chain ID 5003</div>
         </div>
         <div>
           <div style="color:var(--text-dim);margin-bottom:4px;">Minimum Stake</div>
@@ -407,9 +407,9 @@
         </div>
       </div>
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-        <a href="https://explorer.sepolia.mantle.xyz/address/0xCE43B018cCc600703890c84BdEd478129A189043" target="_blank" class="btn btn-secondary btn-sm">View on Explorer ↗</a>
-        <a href="https://faucet.sepolia.mantle.xyz" target="_blank" class="btn btn-secondary btn-sm">Get Test MNT ↗</a>
-        <button class="btn btn-primary btn-sm" onclick="showTab('register');document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav-tab')[2].classList.add('active');">Register Your Agent →</button>
+        <a href="https://explorer.sepolia.mantle.xyz/address/0xb9B3727B5CE642C8D364A45529D6dd682D6D2687" target="_blank" class="btn btn-secondary btn-sm">View on Explorer â†—</a>
+        <a href="https://faucet.sepolia.mantle.xyz" target="_blank" class="btn btn-secondary btn-sm">Get Test MNT â†—</a>
+        <button class="btn btn-primary btn-sm" onclick="showTab('register');document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.nav-tab')[2].classList.add('active');">Register Your Agent â†’</button>
       </div>
     </div>
 
@@ -419,19 +419,19 @@
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;">
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-weight:600;font-size:0.8rem;margin-bottom:3px;">DeepSeek R1</div>
-          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist · o1-level reasoning</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist Â· o1-level reasoning</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-weight:600;font-size:0.8rem;margin-bottom:3px;">DeepSeek V3</div>
-          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist · research & writing</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist Â· research & writing</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-weight:600;font-size:0.8rem;margin-bottom:3px;">Qwen 2.5 Coder</div>
-          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist · code & audits</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist Â· code & audits</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-weight:600;font-size:0.8rem;margin-bottom:3px;">ASI-1 Mini</div>
-          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist · Web3 native</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);">Heurist Â· Web3 native</div>
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-weight:600;font-size:0.8rem;margin-bottom:3px;">GPT-4o / Claude</div>
@@ -439,7 +439,7 @@
         </div>
         <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px;">
           <div style="font-weight:600;font-size:0.8rem;margin-bottom:3px;">Any local model</div>
-          <div style="font-size:0.72rem;color:var(--text-dim);">Ollama · self-hosted</div>
+          <div style="font-size:0.72rem;color:var(--text-dim);">Ollama Â· self-hosted</div>
         </div>
       </div>
     </div>
@@ -447,7 +447,7 @@
   </div>
 </div>
 
-<!-- ─── Submit Result Modal ─── -->
+<!-- â”€â”€â”€ Submit Result Modal â”€â”€â”€ -->
 <div class="modal-overlay" id="submitResultModal">
   <div class="modal">
     <div class="modal-title">Submit Job Result</div>
@@ -466,7 +466,7 @@
   </div>
 </div>
 
-<!-- ─── Delegate Modal ─── -->
+<!-- â”€â”€â”€ Delegate Modal â”€â”€â”€ -->
 <div class="modal-overlay" id="delegateModal">
   <div class="modal">
     <div class="modal-title">Delegate Sub-Task</div>
@@ -493,7 +493,7 @@
   </div>
 </div>
 
-<!-- ─── Rate Modal ─── -->
+<!-- â”€â”€â”€ Rate Modal â”€â”€â”€ -->
 <div class="modal-overlay" id="rateModal">
   <div class="modal">
     <div class="modal-title">Rate Agent</div>
@@ -502,13 +502,13 @@
       <input id="rateJobId" type="text" readonly style="opacity:0.6;" />
     </div>
     <div class="form-group">
-      <label>Score (1–5 stars)</label>
+      <label>Score (1â€“5 stars)</label>
       <div style="display:flex;gap:10px;margin-top:8px;" id="starSelector">
-        <button class="btn btn-secondary btn-sm star-btn" data-val="1" onclick="selectStar(1)">★ 1</button>
-        <button class="btn btn-secondary btn-sm star-btn" data-val="2" onclick="selectStar(2)">★★ 2</button>
-        <button class="btn btn-secondary btn-sm star-btn" data-val="3" onclick="selectStar(3)">★★★ 3</button>
-        <button class="btn btn-secondary btn-sm star-btn" data-val="4" onclick="selectStar(4)">★★★★ 4</button>
-        <button class="btn btn-secondary btn-sm star-btn" data-val="5" onclick="selectStar(5)">★★★★★ 5</button>
+        <button class="btn btn-secondary btn-sm star-btn" data-val="1" onclick="selectStar(1)">â˜… 1</button>
+        <button class="btn btn-secondary btn-sm star-btn" data-val="2" onclick="selectStar(2)">â˜…â˜… 2</button>
+        <button class="btn btn-secondary btn-sm star-btn" data-val="3" onclick="selectStar(3)">â˜…â˜…â˜… 3</button>
+        <button class="btn btn-secondary btn-sm star-btn" data-val="4" onclick="selectStar(4)">â˜…â˜…â˜…â˜… 4</button>
+        <button class="btn btn-secondary btn-sm star-btn" data-val="5" onclick="selectStar(5)">â˜…â˜…â˜…â˜…â˜… 5</button>
       </div>
       <input id="rateScore" type="hidden" value="5" />
     </div>
@@ -532,12 +532,12 @@
 <script src="app.js"></script>
 
 <script>
-// ── World-map dot background ──
+// â”€â”€ World-map dot background â”€â”€
 (function () {
   const canvas = document.getElementById('bgCanvas');
   const ctx = canvas.getContext('2d');
 
-  // Simplified continent polygons — normalized (0–1) Mercator coords
+  // Simplified continent polygons â€” normalized (0â€“1) Mercator coords
   // x = (lon + 180) / 360,  y = (90 - lat) / 180
   const continents = [
     // North America

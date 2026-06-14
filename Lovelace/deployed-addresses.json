@@ -1,0 +1,9 @@
+{
+  "network": "mantleSepolia",
+  "chainId": 5003,
+  "lovelace": "0xb9B3727B5CE642C8D364A45529D6dd682D6D2687",
+  "agentNFT": "0x3cbf979bC35b332C73d5f0b276ED8702107C8b31",
+  "deployer": "0x28c8426B02532B18f14e58f5556a5E1e4Fbc5136",
+  "deployedAt": "2026-06-14T16:51:44.874Z",
+  "explorer": "https://explorer.sepolia.mantle.xyz"
+}
