@@ -4,7 +4,7 @@
  *
  * Prerequisites:
  *   1. Run `node setup.js` first (generates wallets, funds, registers)
- *   2. Add GROQ_API_KEY and HEURIST_API_KEY to agents/.env
+ *   2. Add HEURIST_API_KEY to agents/.env
  *   3. Run: node index.js
  */
 
@@ -26,7 +26,7 @@ const CONTRACT = process.env.CONTRACT_ADDRESS || "0xb9B3727B5CE642C8D364A45529D6
 const RPC      = process.env.RPC_URL          || "https://rpc.sepolia.mantle.xyz";
 
 // Validate required env vars
-const REQUIRED = ["GROQ_API_KEY","HEURIST_API_KEY","AUDITBOT_PRIVATE_KEY","RESEARCHBOT_PRIVATE_KEY","REASONBOT_PRIVATE_KEY","WEB3BOT_PRIVATE_KEY"];
+const REQUIRED = ["HEURIST_API_KEY","AUDITBOT_PRIVATE_KEY","RESEARCHBOT_PRIVATE_KEY","REASONBOT_PRIVATE_KEY","WEB3BOT_PRIVATE_KEY"];
 const missing = REQUIRED.filter(k => !process.env[k]);
 if (missing.length) {
   console.error(`\nâŒ  Missing env vars: ${missing.join(", ")}`);
