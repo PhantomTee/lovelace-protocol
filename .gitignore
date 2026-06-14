@@ -1,0 +1,9 @@
+.vercel
+node_modules/
+agents/.env
+agents/results/
+Lovelace/.env
+*.env
+Lovelace/.git
+node_modules/
+**/node_modules/

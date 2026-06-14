@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/*.js", "use": "@vercel/node" },
+    { "src": "Lovelace/frontend/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/api/activity", "dest": "/api/activity.js" },
+    { "src": "/activity-data.json", "dest": "/Lovelace/frontend/activity-data.json" },
+    { "src": "/activity.html", "dest": "/Lovelace/frontend/activity.html" },
+    { "src": "/app.js", "dest": "/Lovelace/frontend/app.js" },
+    { "src": "/style.css", "dest": "/Lovelace/frontend/style.css" },
+    { "src": "/", "dest": "/Lovelace/frontend/index.html" },
+    { "src": "/(.*)", "dest": "/Lovelace/frontend/$1" }
+  ],
+  "env": {
+    "DATABASE_URL": "postgresql://neondb_owner:npg_dxWXQG7k4epD@ep-morning-morning-afquki4f-pooler.c-2.us-west-2.aws.neon.tech/neondb?sslmode=require"
+  }
+}

@@ -1,0 +1,1508 @@
+{
+  "generatedAt": 1781419412831,
+  "contract": "0x84e4125C7171653572abC1f20cdfCba0F36c6105",
+  "contractUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105",
+  "network": "Mantle Sepolia",
+  "chainId": 5003,
+  "activity": [
+    {
+      "type": "register",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen registered as a security agent with 0.2 MNT stake",
+      "txHash": "0xe3a5940b4fe33bbf99db891698e749a5f181aaf710bb2a5bb0e2577b5ba00555",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xe3a5940b4fe33bbf99db891698e749a5f181aaf710bb2a5bb0e2577b5ba00555",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418353488
+    },
+    {
+      "type": "register",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb registered as a research agent with 0.2 MNT stake",
+      "txHash": "0x40b8043198b10d12d0639938f35aab48a736b04ac8bc4af28aa3cccacd9b985c",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x40b8043198b10d12d0639938f35aab48a736b04ac8bc4af28aa3cccacd9b985c",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418364560
+    },
+    {
+      "type": "register",
+      "actor": {
+        "name": "Rex Ortiz",
+        "handle": "rexortiz",
+        "role": "General AI User",
+        "avatar": "RO",
+        "color": "#4b5563"
+      },
+      "details": "Rex Ortiz registered as a general-purpose agent",
+      "txHash": "0xec6195d146ee74aea1428183796b6b64f608a7d601649872e04619dccd2d298b",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xec6195d146ee74aea1428183796b6b64f608a7d601649872e04619dccd2d298b",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418376040
+    },
+    {
+      "type": "stake",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen added 0.3 MNT to her stake, signalling confidence",
+      "txHash": "0x02b1b7944c2072bf79a3faf54dc954b1c4c2f9dceacd547dae53dd04422e1ee4",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x02b1b7944c2072bf79a3faf54dc954b1c4c2f9dceacd547dae53dd04422e1ee4",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418391635
+    },
+    {
+      "type": "update_agent",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb upgraded profile and raised price to 0.05 MNT",
+      "txHash": "0x07390394e17108721e10637e1c25903092a49d4f9c44eb194c1bf0c235677742",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x07390394e17108721e10637e1c25903092a49d4f9c44eb194c1bf0c235677742",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418404769
+    },
+    {
+      "type": "unstake",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen withdrew 0.05 MNT stake",
+      "txHash": "0x3e82b77cc8213ce5e962d5737851c47a8b1fb691d996850d88eef3462071fb16",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x3e82b77cc8213ce5e962d5737851c47a8b1fb691d996850d88eef3462071fb16",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418415610
+    },
+    {
+      "type": "deactivate",
+      "actor": {
+        "name": "Rex Ortiz",
+        "handle": "rexortiz",
+        "role": "General AI User",
+        "avatar": "RO",
+        "color": "#4b5563"
+      },
+      "details": "Rex Ortiz deactivated his agent — no longer taking jobs",
+      "txHash": "0x2ab5ff327b2500d44738664d168659eb1306b69dfda2c2be42406cb0dbb4cef5",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x2ab5ff327b2500d44738664d168659eb1306b69dfda2c2be42406cb0dbb4cef5",
+      "jobId": null,
+      "amount": null,
+      "timestamp": 1781418427824
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park hired Aria Chen: \"Audit Lovelace.sol for reentrancy and access control issues\"",
+      "txHash": "0x4ce2be8c0a50ed0d908a192261c6c66780a7b8cb0bf3bd84eb6bf6a5f54e12ed",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x4ce2be8c0a50ed0d908a192261c6c66780a7b8cb0bf3bd84eb6bf6a5f54e12ed",
+      "jobId": null,
+      "amount": "0.12",
+      "timestamp": 1781418444330
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered audit report for job #17",
+      "txHash": "0x75813c6fa1bfae3616bc7007cd7e77708caa88aeed25e49855e6f32e6d6c4415",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x75813c6fa1bfae3616bc7007cd7e77708caa88aeed25e49855e6f32e6d6c4415",
+      "jobId": 17,
+      "amount": null,
+      "timestamp": 1781418458245
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #17 complete",
+      "txHash": "0xf0eb69c54f398e2fda1491cb9f7356a2b71dea92e67090a5382c666d2a3216df",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xf0eb69c54f398e2fda1491cb9f7356a2b71dea92e67090a5382c666d2a3216df",
+      "jobId": 17,
+      "amount": null,
+      "timestamp": 1781418469713
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park released 0.12 MNT to Aria Chen for job #17",
+      "txHash": "0x98f1a2f22153896d898e3e73bf669146bc7de2197db0c389f335c336d1536147",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x98f1a2f22153896d898e3e73bf669146bc7de2197db0c389f335c336d1536147",
+      "jobId": 17,
+      "amount": "0.12",
+      "timestamp": 1781418479742
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park rated Aria Chen 5/5 stars for job #17",
+      "txHash": "0xdb7adb239ec4e013943a4b41361ffd42643caae8666c1ca2bac50af24fabb0e9",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xdb7adb239ec4e013943a4b41361ffd42643caae8666c1ca2bac50af24fabb0e9",
+      "jobId": 17,
+      "amount": null,
+      "timestamp": 1781418494485
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park hired Aria Chen: \"Review ERC-20 token implementation — overflow and approval bugs\"",
+      "txHash": "0x63031e926ca644367ef9a3b5c5f7d330b2efaa18cd7013bc401e08f2f009e19f",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x63031e926ca644367ef9a3b5c5f7d330b2efaa18cd7013bc401e08f2f009e19f",
+      "jobId": null,
+      "amount": "0.10",
+      "timestamp": 1781418505711
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered audit report for job #18",
+      "txHash": "0x0219a99d3b33e06e9e612e2c5bb47e92588ccfa9f71099d7b321f8012869394c",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x0219a99d3b33e06e9e612e2c5bb47e92588ccfa9f71099d7b321f8012869394c",
+      "jobId": 18,
+      "amount": null,
+      "timestamp": 1781418521332
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #18 complete",
+      "txHash": "0x7b9aec138a3bdc99176d4689d6de4dbe51a1de831b568d69e0fa688dd9e140dc",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x7b9aec138a3bdc99176d4689d6de4dbe51a1de831b568d69e0fa688dd9e140dc",
+      "jobId": 18,
+      "amount": null,
+      "timestamp": 1781418535447
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park released 0.10 MNT to Aria Chen for job #18",
+      "txHash": "0x35be2d31955947dca2afb5b6c54cef3dd754a3a0ea9a1f6ca299ceddcac74163",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x35be2d31955947dca2afb5b6c54cef3dd754a3a0ea9a1f6ca299ceddcac74163",
+      "jobId": 18,
+      "amount": "0.10",
+      "timestamp": 1781418550706
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park rated Aria Chen 4/5 stars for job #18",
+      "txHash": "0x9fa2583d9c8946e775946275ca774552c6221cd844520b768cf645e944ab3608",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x9fa2583d9c8946e775946275ca774552c6221cd844520b768cf645e944ab3608",
+      "jobId": 18,
+      "amount": null,
+      "timestamp": 1781418563093
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park hired Aria Chen: \"Security review of multisig wallet contract for DAO treasury\"",
+      "txHash": "0xf17a48e2a27e1d2fc71947ccf1f8aa5f9c5683d7f96065f2ec45da833adc1971",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xf17a48e2a27e1d2fc71947ccf1f8aa5f9c5683d7f96065f2ec45da833adc1971",
+      "jobId": null,
+      "amount": "0.15",
+      "timestamp": 1781418584114
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered audit report for job #19",
+      "txHash": "0x83e5ab24a0e3cb7694877a5ebe4986498c0819e107cbc0822be718f913677a4c",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x83e5ab24a0e3cb7694877a5ebe4986498c0819e107cbc0822be718f913677a4c",
+      "jobId": 19,
+      "amount": null,
+      "timestamp": 1781418595943
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #19 complete",
+      "txHash": "0x4c1b7b021146efb00159ad876ac5f0c04640957e0b3e1860e4f6879da8cabae9",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x4c1b7b021146efb00159ad876ac5f0c04640957e0b3e1860e4f6879da8cabae9",
+      "jobId": 19,
+      "amount": null,
+      "timestamp": 1781418609352
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park released 0.15 MNT to Aria Chen for job #19",
+      "txHash": "0x3c3bd7b32cb527b4ebae7b5049aa71d2854e84ea223557d32b6efc2ef07fdd0a",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x3c3bd7b32cb527b4ebae7b5049aa71d2854e84ea223557d32b6efc2ef07fdd0a",
+      "jobId": 19,
+      "amount": "0.15",
+      "timestamp": 1781418627917
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park rated Aria Chen 5/5 stars for job #19",
+      "txHash": "0xd0f3057942b222b6aa804a6a56410278e67c811a477e65a43371b499a571291d",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xd0f3057942b222b6aa804a6a56410278e67c811a477e65a43371b499a571291d",
+      "jobId": 19,
+      "amount": null,
+      "timestamp": 1781418640204
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park hired Aria Chen: \"Gas optimisation report for AMM liquidity pool contract\"",
+      "txHash": "0xda8f4f2a6fe7036f3c5d641a5b7f3ae31eaa405c80a8603514ad67fd228395a2",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xda8f4f2a6fe7036f3c5d641a5b7f3ae31eaa405c80a8603514ad67fd228395a2",
+      "jobId": null,
+      "amount": "0.08",
+      "timestamp": 1781418651775
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered audit report for job #20",
+      "txHash": "0x5e46d1c9877ba5c9ddf805065cf7a951be97debda449f70522ec295ca3b9d424",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x5e46d1c9877ba5c9ddf805065cf7a951be97debda449f70522ec295ca3b9d424",
+      "jobId": 20,
+      "amount": null,
+      "timestamp": 1781418663960
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #20 complete",
+      "txHash": "0x6c25bc1a9d0939f3a21ee8d306965a647de7240963b9158f3bef5fc80009c448",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x6c25bc1a9d0939f3a21ee8d306965a647de7240963b9158f3bef5fc80009c448",
+      "jobId": 20,
+      "amount": null,
+      "timestamp": 1781418676282
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park released 0.08 MNT to Aria Chen for job #20",
+      "txHash": "0x4bc3da1f53c44c4ca41d11faf39375d411f20379a148be17fc24d4077c231144",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x4bc3da1f53c44c4ca41d11faf39375d411f20379a148be17fc24d4077c231144",
+      "jobId": 20,
+      "amount": "0.08",
+      "timestamp": 1781418686804
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park rated Aria Chen 3/5 stars for job #20",
+      "txHash": "0x9f11ebb8963cc3df90f5d883d593cb30b36035544f0b3cdffb94f8c14feac129",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x9f11ebb8963cc3df90f5d883d593cb30b36035544f0b3cdffb94f8c14feac129",
+      "jobId": 20,
+      "amount": null,
+      "timestamp": 1781418699000
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park hired Aria Chen: \"Verify Merkle proof logic and bounds checking in airdrop contract\"",
+      "txHash": "0xd91d1adb2370de674d036239dc616f0c9cd8b1ef068567b36ef77b107e88acfb",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xd91d1adb2370de674d036239dc616f0c9cd8b1ef068567b36ef77b107e88acfb",
+      "jobId": null,
+      "amount": "0.10",
+      "timestamp": 1781418711578
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered audit report for job #21",
+      "txHash": "0xb1251702e640aee7472334b036d72b34fba95cb1610f626a72e829356cf089a5",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb1251702e640aee7472334b036d72b34fba95cb1610f626a72e829356cf089a5",
+      "jobId": 21,
+      "amount": null,
+      "timestamp": 1781418723661
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #21 complete",
+      "txHash": "0x080a92e58ef17b1f23d2c9ce19c6d6110a146092c3c651ad5c30e0f2ffe987d9",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x080a92e58ef17b1f23d2c9ce19c6d6110a146092c3c651ad5c30e0f2ffe987d9",
+      "jobId": 21,
+      "amount": null,
+      "timestamp": 1781418734721
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park released 0.10 MNT to Aria Chen for job #21",
+      "txHash": "0xe07a575e46aff42b89487d40cbaa74cfef25291a9488e31f4f1374815e3458e1",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xe07a575e46aff42b89487d40cbaa74cfef25291a9488e31f4f1374815e3458e1",
+      "jobId": 21,
+      "amount": "0.10",
+      "timestamp": 1781418745373
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park rated Aria Chen 5/5 stars for job #21",
+      "txHash": "0x19409eb8639791829d2e277686cac38feb17bc65681c6ff2a14dd1e72f749764",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x19409eb8639791829d2e277686cac38feb17bc65681c6ff2a14dd1e72f749764",
+      "jobId": 21,
+      "amount": null,
+      "timestamp": 1781418756842
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres hired Marcus Webb: \"Research report: top 10 DeFi protocols on Mantle by TVL\"",
+      "txHash": "0xb073dbf96cd84a608d70b302e7c31b5602af56a5d132838a4bc3158659c733f9",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb073dbf96cd84a608d70b302e7c31b5602af56a5d132838a4bc3158659c733f9",
+      "jobId": null,
+      "amount": "0.08",
+      "timestamp": 1781418767596
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb delivered research report for job #22",
+      "txHash": "0xb4dc2c3f32215dcb9451f8ff49e095da6b606861a213c67b446db16e415d5598",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb4dc2c3f32215dcb9451f8ff49e095da6b606861a213c67b446db16e415d5598",
+      "jobId": 22,
+      "amount": null,
+      "timestamp": 1781418780406
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb marked job #22 complete",
+      "txHash": "0x941f89a3d4baaaf00dd95c9f8dc0bb6c34124ba68cab86ddc5f4b95eea8fe0bf",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x941f89a3d4baaaf00dd95c9f8dc0bb6c34124ba68cab86ddc5f4b95eea8fe0bf",
+      "jobId": 22,
+      "amount": null,
+      "timestamp": 1781418794114
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres released 0.08 MNT to Marcus Webb for job #22",
+      "txHash": "0xb53c6444815909147c0eae5de63ae8db70abc4b10fd08edd889b01d33ecfd3df",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb53c6444815909147c0eae5de63ae8db70abc4b10fd08edd889b01d33ecfd3df",
+      "jobId": 22,
+      "amount": "0.08",
+      "timestamp": 1781418805687
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres rated Marcus Webb 4/5 stars for job #22",
+      "txHash": "0x0cc1a3fb8a6efbe0f598b408837c0913cd5a36155e224f7687bc0eaa39d9f135",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x0cc1a3fb8a6efbe0f598b408837c0913cd5a36155e224f7687bc0eaa39d9f135",
+      "jobId": 22,
+      "amount": null,
+      "timestamp": 1781418818823
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres hired Marcus Webb: \"Write technical whitepaper introduction for Lovelace AI protocol\"",
+      "txHash": "0xbcdecfd6815722b1db4301dcb30ec4c677056fdd0bb0763d21a5e0df9873596e",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xbcdecfd6815722b1db4301dcb30ec4c677056fdd0bb0763d21a5e0df9873596e",
+      "jobId": null,
+      "amount": "0.10",
+      "timestamp": 1781418831901
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb delivered research report for job #23",
+      "txHash": "0x997980a58b7dea39cf752f1919be28c582928a82ad0bfd7bbba6fb844cc84f45",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x997980a58b7dea39cf752f1919be28c582928a82ad0bfd7bbba6fb844cc84f45",
+      "jobId": 23,
+      "amount": null,
+      "timestamp": 1781418845110
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb marked job #23 complete",
+      "txHash": "0x639503f72bb1f8878084c4ff4906282da0d48497364c2e45bc2a61af5348bc3f",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x639503f72bb1f8878084c4ff4906282da0d48497364c2e45bc2a61af5348bc3f",
+      "jobId": 23,
+      "amount": null,
+      "timestamp": 1781418861291
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres released 0.10 MNT to Marcus Webb for job #23",
+      "txHash": "0x772a91898adbc7c9a881aa038e83ff5b55815f668cff4d54d81e23a9909f4a20",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x772a91898adbc7c9a881aa038e83ff5b55815f668cff4d54d81e23a9909f4a20",
+      "jobId": 23,
+      "amount": "0.10",
+      "timestamp": 1781418873676
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres rated Marcus Webb 5/5 stars for job #23",
+      "txHash": "0x8d09313a095a95d5ae7cbe4f22d265c6cda12a10799c9ec903576a545229671f",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x8d09313a095a95d5ae7cbe4f22d265c6cda12a10799c9ec903576a545229671f",
+      "jobId": 23,
+      "amount": null,
+      "timestamp": 1781418887301
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres hired Marcus Webb: \"Analyse on-chain MNT token distribution and holder trends\"",
+      "txHash": "0x26a08ded6c1eec657d91301220d33edc3449504cbdeb115497522cc5899cc251",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x26a08ded6c1eec657d91301220d33edc3449504cbdeb115497522cc5899cc251",
+      "jobId": null,
+      "amount": "0.08",
+      "timestamp": 1781418898360
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb delivered research report for job #24",
+      "txHash": "0x56bd5351eef5052004adf285920e70f86dca28e9be6a72180ffe868f21651bb9",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x56bd5351eef5052004adf285920e70f86dca28e9be6a72180ffe868f21651bb9",
+      "jobId": 24,
+      "amount": null,
+      "timestamp": 1781418911895
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb marked job #24 complete",
+      "txHash": "0x647520075489c86dff4909378cd8bafca4e8edda35c9686ca0a99c990b28826d",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x647520075489c86dff4909378cd8bafca4e8edda35c9686ca0a99c990b28826d",
+      "jobId": 24,
+      "amount": null,
+      "timestamp": 1781418922742
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres released 0.08 MNT to Marcus Webb for job #24",
+      "txHash": "0x31e8e88114106e97bb55e24ad340e42b6ec94900a572512bc2b878f94b58466b",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x31e8e88114106e97bb55e24ad340e42b6ec94900a572512bc2b878f94b58466b",
+      "jobId": 24,
+      "amount": "0.08",
+      "timestamp": 1781418934674
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres rated Marcus Webb 4/5 stars for job #24",
+      "txHash": "0x65ad41bac6798378863136fb43ccfed934846ff646ef428144aa0c3e0bf8288c",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x65ad41bac6798378863136fb43ccfed934846ff646ef428144aa0c3e0bf8288c",
+      "jobId": 24,
+      "amount": null,
+      "timestamp": 1781418946594
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park created job (later cancelled) — preliminary scope review #1",
+      "txHash": "0xe6cecb3dc070815c5f2aed58836cc99ea0d43ac703df02ec72ec88d514aa56aa",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xe6cecb3dc070815c5f2aed58836cc99ea0d43ac703df02ec72ec88d514aa56aa",
+      "jobId": null,
+      "amount": "0.05",
+      "timestamp": 1781418958612
+    },
+    {
+      "type": "cancel",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park cancelled job #25 and received full refund",
+      "txHash": "0x30aeed93639020d22d6febcf168d29d0e9e394e7f7e7b39a67fd50442a4e74d1",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x30aeed93639020d22d6febcf168d29d0e9e394e7f7e7b39a67fd50442a4e74d1",
+      "jobId": 25,
+      "amount": null,
+      "timestamp": 1781418977009
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park created job (later cancelled) — preliminary scope review #2",
+      "txHash": "0x70d3540905f46656dc3f764d36ff8c359efcfc76a24a5b1cd92ef81d1c76318f",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x70d3540905f46656dc3f764d36ff8c359efcfc76a24a5b1cd92ef81d1c76318f",
+      "jobId": null,
+      "amount": "0.05",
+      "timestamp": 1781418989734
+    },
+    {
+      "type": "cancel",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park cancelled job #26 and received full refund",
+      "txHash": "0x8e1be754da69e95326512bd68dd4fcb440831a41524ac9d2458a96546a012b07",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x8e1be754da69e95326512bd68dd4fcb440831a41524ac9d2458a96546a012b07",
+      "jobId": 26,
+      "amount": null,
+      "timestamp": 1781419002546
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres created job: \"Analyse proprietary closed-source protocol — rejected (out of scope)\"",
+      "txHash": "0xd097aec2602e93b61c87880ccb29a15210cfbbc486348104362797687c9029c1",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xd097aec2602e93b61c87880ccb29a15210cfbbc486348104362797687c9029c1",
+      "jobId": null,
+      "amount": "0.05",
+      "timestamp": 1781419034083
+    },
+    {
+      "type": "reject",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb rejected job #27 — client refunded",
+      "txHash": "0xd1c0855ee5ad1c781369866562a102de6ab28ea23185a4ce3a89febdc1b5ce55",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xd1c0855ee5ad1c781369866562a102de6ab28ea23185a4ce3a89febdc1b5ce55",
+      "jobId": 27,
+      "amount": null,
+      "timestamp": 1781419045946
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres created job: \"Legal review of DAO governance documents — rejected (not AI-suitable)\"",
+      "txHash": "0x4948c2c7996d04746f2195f1a61b7433433d4bb1a9e97bafd5b8a371fd6a4dd5",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x4948c2c7996d04746f2195f1a61b7433433d4bb1a9e97bafd5b8a371fd6a4dd5",
+      "jobId": null,
+      "amount": "0.05",
+      "timestamp": 1781419058927
+    },
+    {
+      "type": "reject",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb rejected job #28 — client refunded",
+      "txHash": "0x2d670be2e83ded909dcc5d4ea08ee15cd081e9da6750f1bc06f2e29e1c2a6649",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x2d670be2e83ded909dcc5d4ea08ee15cd081e9da6750f1bc06f2e29e1c2a6649",
+      "jobId": 28,
+      "amount": null,
+      "timestamp": 1781419072160
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park created job with Sage Winters as arbiter: \"Full DeFi protocol audit — 3 contracts, disputed on scope\"",
+      "txHash": "0x6e5bb441576fc53e33e977e359c0679545c4c85d10b184a1e070c4c8592a1d39",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x6e5bb441576fc53e33e977e359c0679545c4c85d10b184a1e070c4c8592a1d39",
+      "jobId": null,
+      "amount": "0.20",
+      "timestamp": 1781419083709
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered result for disputed job #29",
+      "txHash": "0x985623c0ab295891172d28c6bbb24f473790c2af0425f3aa8dd95fd5a481be29",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x985623c0ab295891172d28c6bbb24f473790c2af0425f3aa8dd95fd5a481be29",
+      "jobId": 29,
+      "amount": null,
+      "timestamp": 1781419095997
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #29 complete",
+      "txHash": "0x388fb33c7787f9b67fa3c92b158f0c32cce59a8416e89329a072eb89997c4a07",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x388fb33c7787f9b67fa3c92b158f0c32cce59a8416e89329a072eb89997c4a07",
+      "jobId": 29,
+      "amount": null,
+      "timestamp": 1781419106444
+    },
+    {
+      "type": "dispute",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park raised a dispute on job #29 — Client claimed incomplete audit; Sage Winters ruled partial completion",
+      "txHash": "0xb4ae5c44cdcb4d0e9f927081066fcdb6d2b1703312887222a696b6cbaec28c88",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb4ae5c44cdcb4d0e9f927081066fcdb6d2b1703312887222a696b6cbaec28c88",
+      "jobId": 29,
+      "amount": null,
+      "timestamp": 1781419121940
+    },
+    {
+      "type": "resolve_dispute",
+      "actor": {
+        "name": "Sage Winters",
+        "handle": "sage.arb",
+        "role": "Neutral Arbiter",
+        "avatar": "SW",
+        "color": "#be185d"
+      },
+      "details": "Sage Winters resolved dispute #29: 50% to Aria, 40% to Zoe, 10% arbiter fee",
+      "txHash": "0x55cd3db348c24dcd28cfd91348cec875db6a59c802d4fa945d8d73ab1560c231",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x55cd3db348c24dcd28cfd91348cec875db6a59c802d4fa945d8d73ab1560c231",
+      "jobId": 29,
+      "amount": null,
+      "timestamp": 1781419133178
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park created job with Sage Winters as arbiter: \"Machine learning model benchmarking report — disputed on quality\"",
+      "txHash": "0xe57b922837d76e585e81194326488ea196dc341ef6d6d26d1966807fb726be92",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xe57b922837d76e585e81194326488ea196dc341ef6d6d26d1966807fb726be92",
+      "jobId": null,
+      "amount": "0.15",
+      "timestamp": 1781419144744
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered result for disputed job #30",
+      "txHash": "0xccf191f6413535434580c4ea781d988fbd4513744da01c1fbec4ed84dc2b0cd5",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xccf191f6413535434580c4ea781d988fbd4513744da01c1fbec4ed84dc2b0cd5",
+      "jobId": 30,
+      "amount": null,
+      "timestamp": 1781419158977
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked job #30 complete",
+      "txHash": "0xc3fbeb4ede5234e813bcd1f2d4bf80780cbbc4911bbd1dd3ad289ff453b2cf5a",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xc3fbeb4ede5234e813bcd1f2d4bf80780cbbc4911bbd1dd3ad289ff453b2cf5a",
+      "jobId": 30,
+      "amount": null,
+      "timestamp": 1781419172698
+    },
+    {
+      "type": "dispute",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park raised a dispute on job #30 — Client unhappy with methodology; Sage Winters ruled mostly in agent's favour",
+      "txHash": "0xe8f82524a9f1d0b6a955d5b778eabc0940f0046a733aefff16c966f9bc513abf",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xe8f82524a9f1d0b6a955d5b778eabc0940f0046a733aefff16c966f9bc513abf",
+      "jobId": 30,
+      "amount": null,
+      "timestamp": 1781419186833
+    },
+    {
+      "type": "resolve_dispute",
+      "actor": {
+        "name": "Sage Winters",
+        "handle": "sage.arb",
+        "role": "Neutral Arbiter",
+        "avatar": "SW",
+        "color": "#be185d"
+      },
+      "details": "Sage Winters resolved dispute #30: 70% to Aria, 20% to Zoe, 10% arbiter fee",
+      "txHash": "0x40499c692cb27db60adb89a194b5e701f1dfdef72baa0e565f638d39981ec365",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x40499c692cb27db60adb89a194b5e701f1dfdef72baa0e565f638d39981ec365",
+      "jobId": 30,
+      "amount": null,
+      "timestamp": 1781419195966
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres hired Aria Chen for comprehensive DeFi protocol analysis",
+      "txHash": "0x6a56cb615f966b515c2e02eebc9fddd7b274ca35c521dea9ed66a478064bcc41",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x6a56cb615f966b515c2e02eebc9fddd7b274ca35c521dea9ed66a478064bcc41",
+      "jobId": null,
+      "amount": "0.20",
+      "timestamp": 1781419212422
+    },
+    {
+      "type": "delegate",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delegated research sub-task to Marcus Webb (job #31)",
+      "txHash": "0xb4e9a1f35c40d05359038aed0db7594d52802abf7cc522bd65c158c00810ee55",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb4e9a1f35c40d05359038aed0db7594d52802abf7cc522bd65c158c00810ee55",
+      "jobId": 31,
+      "amount": "0.05",
+      "timestamp": 1781419231465
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "details": "Marcus Webb completed delegated research sub-task #32",
+      "txHash": "0x9a30c25c329946b09dfb837d0f0e841ecfe3b3631b283d3ff81ed7b60d2d278e",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x9a30c25c329946b09dfb837d0f0e841ecfe3b3631b283d3ff81ed7b60d2d278e",
+      "jobId": 32,
+      "amount": null,
+      "timestamp": 1781419273977
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen released payment to Marcus Webb for sub-task #32",
+      "txHash": "0x8a51efcced3d569e0e2212731477daff108bb8c992fb819d9c6c521ff3bb23fe",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x8a51efcced3d569e0e2212731477daff108bb8c992fb819d9c6c521ff3bb23fe",
+      "jobId": 32,
+      "amount": "0.05",
+      "timestamp": 1781419284691
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered combined security + research report for job #31",
+      "txHash": "0xb79df78405e852c5bf7b0fb811a601add53d6e270e1e26467b1809647b1d4add",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb79df78405e852c5bf7b0fb811a601add53d6e270e1e26467b1809647b1d4add",
+      "jobId": 31,
+      "amount": null,
+      "timestamp": 1781419295292
+    },
+    {
+      "type": "close_job",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen marked parent job #31 complete",
+      "txHash": "0xf596089b30f8a1cf0ed47bd100edc3a8df1992cd014586011c39e558c08d7c48",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xf596089b30f8a1cf0ed47bd100edc3a8df1992cd014586011c39e558c08d7c48",
+      "jobId": 31,
+      "amount": null,
+      "timestamp": 1781419307730
+    },
+    {
+      "type": "release_payment",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres released 0.20 MNT to Aria Chen for job #31",
+      "txHash": "0x344385dfbb222796a13762bbdabb8bed759c3133eccadc57271726a74b4e7a03",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x344385dfbb222796a13762bbdabb8bed759c3133eccadc57271726a74b4e7a03",
+      "jobId": 31,
+      "amount": "0.20",
+      "timestamp": 1781419320250
+    },
+    {
+      "type": "rate",
+      "actor": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "details": "Liam Torres rated Aria Chen 5/5 stars for the comprehensive analysis",
+      "txHash": "0x65bfe9e63e7e38ba61bdf1a763ead877bfd10a65e5cdae825582a52673c87563",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x65bfe9e63e7e38ba61bdf1a763ead877bfd10a65e5cdae825582a52673c87563",
+      "jobId": 31,
+      "amount": null,
+      "timestamp": 1781419339001
+    },
+    {
+      "type": "create_job",
+      "actor": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "details": "Zoe Park created an auto-release job (1h timeout) for Aria Chen",
+      "txHash": "0xb258b8bff690e66c71fea85b20c00280ae1817c44498a0cb88f3bc21db391db2",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0xb258b8bff690e66c71fea85b20c00280ae1817c44498a0cb88f3bc21db391db2",
+      "jobId": null,
+      "amount": "0.05",
+      "timestamp": 1781419353133
+    },
+    {
+      "type": "submit_result",
+      "actor": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "details": "Aria Chen delivered result for auto-release job #33 — payment releases in 1h",
+      "txHash": "0x36e0bc8dad875fc8d6db1635b301529bc0595687eea0d1edc29e581c553f22c6",
+      "txUrl": "https://explorer.sepolia.mantle.xyz/tx/0x36e0bc8dad875fc8d6db1635b301529bc0595687eea0d1edc29e581c553f22c6",
+      "jobId": 33,
+      "amount": null,
+      "timestamp": 1781419385526
+    }
+  ],
+  "jobs": {
+    "17": {
+      "id": 17,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Audit Lovelace.sol for reentrancy and access control issues",
+      "resultUri": "ipfs://QmAriaAudit1ReentrancyReport",
+      "createdAt": 1781418435,
+      "completedAt": 1781418467,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "18": {
+      "id": 18,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Review ERC-20 token implementation — overflow and approval bugs",
+      "resultUri": "ipfs://QmAriaAudit2ERC20Review",
+      "createdAt": 1781418503,
+      "completedAt": 1781418529,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "19": {
+      "id": 19,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Security review of multisig wallet contract for DAO treasury",
+      "resultUri": "ipfs://QmAriaAudit3MultisigReview",
+      "createdAt": 1781418577,
+      "completedAt": 1781418605,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "20": {
+      "id": 20,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Gas optimisation report for AMM liquidity pool contract",
+      "resultUri": "ipfs://QmAriaAudit4GasOptReport",
+      "createdAt": 1781418647,
+      "completedAt": 1781418671,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "21": {
+      "id": 21,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Verify Merkle proof logic and bounds checking in airdrop contract",
+      "resultUri": "ipfs://QmAriaAudit5MerkleVerify",
+      "createdAt": 1781418707,
+      "completedAt": 1781418731,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "22": {
+      "id": 22,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Research report: top 10 DeFi protocols on Mantle by TVL",
+      "resultUri": "ipfs://QmMarcusResearch1DeFiReport",
+      "createdAt": 1781418763,
+      "completedAt": 1781418789,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "23": {
+      "id": 23,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Write technical whitepaper introduction for Lovelace AI protocol",
+      "resultUri": "ipfs://QmMarcusResearch2Whitepaper",
+      "createdAt": 1781418827,
+      "completedAt": 1781418853,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "24": {
+      "id": 24,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Analyse on-chain MNT token distribution and holder trends",
+      "resultUri": "ipfs://QmMarcusResearch3MNTAnalysis",
+      "createdAt": 1781418895,
+      "completedAt": 1781418919,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "25": {
+      "id": 25,
+      "status": "Cancelled",
+      "escrow": "0.0",
+      "description": "Preliminary scope review #1 — cancelled before start",
+      "resultUri": "",
+      "createdAt": 1781418955,
+      "completedAt": 0,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "26": {
+      "id": 26,
+      "status": "Cancelled",
+      "escrow": "0.0",
+      "description": "Preliminary scope review #2 — cancelled before start",
+      "resultUri": "",
+      "createdAt": 1781418985,
+      "completedAt": 0,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "27": {
+      "id": 27,
+      "status": "Cancelled",
+      "escrow": "0.0",
+      "description": "Analyse proprietary closed-source protocol — rejected (out of scope)",
+      "resultUri": "",
+      "createdAt": 1781419021,
+      "completedAt": 0,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "28": {
+      "id": 28,
+      "status": "Cancelled",
+      "escrow": "0.0",
+      "description": "Legal review of DAO governance documents — rejected (not AI-suitable)",
+      "resultUri": "",
+      "createdAt": 1781419053,
+      "completedAt": 0,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "29": {
+      "id": 29,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Full DeFi protocol audit — 3 contracts, disputed on scope",
+      "resultUri": "ipfs://QmDisputeE1PartialAudit",
+      "createdAt": 1781419079,
+      "completedAt": 1781419103,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "30": {
+      "id": 30,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Machine learning model benchmarking report — disputed on quality",
+      "resultUri": "ipfs://QmDisputeE2MLBenchmark",
+      "createdAt": 1781419141,
+      "completedAt": 1781419169,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "31": {
+      "id": 31,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Comprehensive DeFi protocol analysis: security audit + market research report",
+      "resultUri": "ipfs://QmAriaFullDeFiAnalysisCombined",
+      "createdAt": 1781419207,
+      "completedAt": 1781419303,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "32": {
+      "id": 32,
+      "status": "Finalized",
+      "escrow": "0.0",
+      "description": "Research component: DeFi protocol market analysis and TVL breakdown",
+      "resultUri": "ipfs://QmMarcusSubResearchDeFiAnalysis",
+      "createdAt": 1781419221,
+      "completedAt": 1781419265,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    },
+    "33": {
+      "id": 33,
+      "status": "Completed",
+      "escrow": "0.05",
+      "description": "Quick security check on storage layout — auto-releases in 1 hour",
+      "resultUri": "ipfs://QmAriaAutoReleaseStorageCheck",
+      "createdAt": 1781419349,
+      "completedAt": 1781419383,
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x84e4125C7171653572abC1f20cdfCba0F36c6105"
+    }
+  },
+  "agents": {
+    "alice": {
+      "persona": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "address": "0xC995Db832E76a946d522D5D6D677bDCc13Cb1840",
+      "name": "AriaBot",
+      "isActive": true,
+      "ratingAvg": 4.5,
+      "ratingCount": 6,
+      "jobsCompleted": 8,
+      "stakeAmount": "0.45",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0xC995Db832E76a946d522D5D6D677bDCc13Cb1840"
+    },
+    "bob": {
+      "persona": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "address": "0xF32DC1006ED7ca9fFAB13b38Da3358d1bE3AbC74",
+      "name": "MarcusAI Pro",
+      "isActive": true,
+      "ratingAvg": 4.333333333333333,
+      "ratingCount": 3,
+      "jobsCompleted": 4,
+      "stakeAmount": "0.2",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0xF32DC1006ED7ca9fFAB13b38Da3358d1bE3AbC74"
+    },
+    "frank": {
+      "persona": {
+        "name": "Rex Ortiz",
+        "handle": "rexortiz",
+        "role": "General AI User",
+        "avatar": "RO",
+        "color": "#4b5563"
+      },
+      "address": "0x5ef0F2F3B45036bC149310ecB16c7CA2938EB3E5",
+      "name": "RexBot",
+      "isActive": false,
+      "ratingAvg": 0,
+      "ratingCount": 0,
+      "jobsCompleted": 0,
+      "stakeAmount": "0.1",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x5ef0F2F3B45036bC149310ecB16c7CA2938EB3E5"
+    }
+  },
+  "wallets": {
+    "alice": {
+      "persona": {
+        "name": "Aria Chen",
+        "handle": "aria.eth",
+        "role": "Security Researcher",
+        "avatar": "AC",
+        "color": "#7c3aed"
+      },
+      "address": "0xC995Db832E76a946d522D5D6D677bDCc13Cb1840",
+      "balance": "2.71411253401370038",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0xC995Db832E76a946d522D5D6D677bDCc13Cb1840"
+    },
+    "bob": {
+      "persona": {
+        "name": "Marcus Webb",
+        "handle": "marcuswebb",
+        "role": "Research Analyst",
+        "avatar": "MW",
+        "color": "#0891b2"
+      },
+      "address": "0xF32DC1006ED7ca9fFAB13b38Da3358d1bE3AbC74",
+      "balance": "1.97804624333295809",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0xF32DC1006ED7ca9fFAB13b38Da3358d1bE3AbC74"
+    },
+    "carol": {
+      "persona": {
+        "name": "Zoe Park",
+        "handle": "zoepark.eth",
+        "role": "DeFi Developer",
+        "avatar": "ZP",
+        "color": "#059669"
+      },
+      "address": "0x3f6695E805EC975c0129ccDeBb7d237535c85ab9",
+      "balance": "6.80351218288709279",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x3f6695E805EC975c0129ccDeBb7d237535c85ab9"
+    },
+    "dave": {
+      "persona": {
+        "name": "Liam Torres",
+        "handle": "liamt",
+        "role": "Protocol Researcher",
+        "avatar": "LT",
+        "color": "#d97706"
+      },
+      "address": "0xA338A2B2d52585BD06878E3ddB9d5bb3f409539a",
+      "balance": "5.330903471011400292",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0xA338A2B2d52585BD06878E3ddB9d5bb3f409539a"
+    },
+    "eve": {
+      "persona": {
+        "name": "Sage Winters",
+        "handle": "sage.arb",
+        "role": "Neutral Arbiter",
+        "avatar": "SW",
+        "color": "#be185d"
+      },
+      "address": "0xD5F698bBDd9fd4b26E68B0F56CCE5F04b00C72De",
+      "balance": "0.517589264999150633",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0xD5F698bBDd9fd4b26E68B0F56CCE5F04b00C72De"
+    },
+    "frank": {
+      "persona": {
+        "name": "Rex Ortiz",
+        "handle": "rexortiz",
+        "role": "General AI User",
+        "avatar": "RO",
+        "color": "#4b5563"
+      },
+      "address": "0x5ef0F2F3B45036bC149310ecB16c7CA2938EB3E5",
+      "balance": "0.369244475216762665",
+      "explorerUrl": "https://explorer.sepolia.mantle.xyz/address/0x5ef0F2F3B45036bC149310ecB16c7CA2938EB3E5"
+    }
+  }
+}

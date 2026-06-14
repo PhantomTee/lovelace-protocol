@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Protocol Activity — Lovelace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:        #0a0a0f;
+    --surface:   #111118;
+    --surface2:  #1a1a24;
+    --border:    rgba(255,255,255,0.07);
+    --text-1:    #f0f0f8;
+    --text-2:    #8888aa;
+    --text-3:    #555570;
+    --accent:    #7c3aed;
+    --accent2:   #a855f7;
+    --green:     #10b981;
+    --red:       #ef4444;
+    --amber:     #f59e0b;
+    --blue:      #3b82f6;
+    --mono:      'Orbitron', sans-serif;
+    --sans:      'Exo 2', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-1);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  canvas#bgCanvas {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  }
+  .vignette {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    box-shadow: inset 0 0 80px 40px rgba(0,0,0,0.92), inset 0 0 180px 80px rgba(0,0,0,0.75);
+    border-radius: 20px;
+  }
+
+  .page-wrap {
+    position: relative; z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── Header ── */
+  .page-header {
+    padding: 40px 0 32px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+    flex-wrap: wrap;
+  }
+  .page-header h1 {
+    font-family: var(--mono);
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .page-header h1 em {
+    font-family: var(--sans);
+    font-style: italic;
+    color: var(--accent2);
+  }
+  .page-header .sub {
+    color: var(--text-2);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .contract-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contract-pill:hover { border-color: var(--accent); color: var(--text-1); }
+  .contract-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* ── Stats strip ── */
+  .stats-strip {
+    display: flex;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 32px 0;
+    backdrop-filter: blur(8px);
+    overflow-x: auto;
+  }
+  .strip-stat {
+    flex: 1; min-width: 120px;
+    padding: 20px 24px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .strip-stat + .strip-stat {
+    border-left: 1px solid var(--border);
+  }
+  .strip-val {
+    font-family: var(--mono);
+    font-size: clamp(18px, 2.5vw, 24px);
+    font-weight: 700;
+  }
+  .strip-label { color: var(--text-2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ── Tabs ── */
+  .tabs {
+    display: flex; gap: 4px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 28px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    color: var(--text-2);
+    padding: 10px 18px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn.active { color: var(--text-1); border-bottom-color: var(--accent2); }
+  .tab-btn:hover { color: var(--text-1); }
+
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ── Activity feed ── */
+  .feed { display: flex; flex-direction: column; gap: 2px; }
+
+  .feed-item {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 0 14px;
+    align-items: start;
+    padding: 14px 16px;
+    border-radius: 10px;
+    transition: background 0.15s;
+    position: relative;
+  }
+  .feed-item:hover { background: var(--surface); }
+
+  .feed-item::before {
+    content: '';
+    position: absolute;
+    left: 56px;
+    top: 56px;
+    bottom: -2px;
+    width: 1px;
+    background: var(--border);
+  }
+  .feed-item:last-child::before { display: none; }
+
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: #fff; flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .feed-body { min-width: 0; }
+  .feed-actor {
+    font-weight: 600; font-size: 13px; color: var(--text-1);
+    display: inline;
+  }
+  .feed-handle {
+    color: var(--text-3); font-size: 12px; margin-left: 4px;
+  }
+  .feed-role {
+    display: inline-block;
+    font-size: 10px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--text-3);
+    margin-left: 6px;
+    vertical-align: middle;
+    font-family: var(--mono);
+  }
+  .feed-text {
+    color: var(--text-2); font-size: 13px; margin-top: 3px;
+    line-height: 1.5;
+  }
+  .feed-text strong { color: var(--text-1); font-weight: 600; }
+  .feed-tx {
+    margin-top: 6px;
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--text-3);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .feed-tx:hover { color: var(--accent2); }
+  .feed-tx::before { content: '↗'; }
+
+  .feed-meta {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 4px;
+    flex-shrink: 0;
+  }
+  .feed-badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-create   { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+  .badge-submit   { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+  .badge-close    { background: rgba(16,185,129,0.08); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.15); }
+  .badge-release  { background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.25); }
+  .badge-rate     { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+  .badge-register { background: rgba(14,165,233,0.12); color: #38bdf8; border: 1px solid rgba(14,165,233,0.2); }
+  .badge-stake    { background: rgba(124,58,237,0.10); color: #c4b5fd; border: 1px solid rgba(124,58,237,0.2); }
+  .badge-unstake  { background: rgba(107,114,128,0.12); color: #9ca3af; border: 1px solid rgba(107,114,128,0.2); }
+  .badge-cancel   { background: rgba(239,68,68,0.10); color: #f87171; border: 1px solid rgba(239,68,68,0.18); }
+  .badge-reject   { background: rgba(239,68,68,0.10); color: #f87171; border: 1px solid rgba(239,68,68,0.18); }
+  .badge-dispute  { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+  .badge-resolve  { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
+  .badge-delegate { background: rgba(139,92,246,0.15); color: #c4b5fd; border: 1px solid rgba(139,92,246,0.25); }
+  .badge-update   { background: rgba(107,114,128,0.12); color: #9ca3af; border: 1px solid rgba(107,114,128,0.2); }
+  .badge-deactivate { background: rgba(107,114,128,0.12); color: #9ca3af; border: 1px solid rgba(107,114,128,0.2); }
+
+  .feed-amount {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-2);
+  }
+
+  /* ── Agents grid ── */
+  .agents-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 0.2s;
+  }
+  .agent-card:hover { border-color: rgba(255,255,255,0.15); }
+  .agent-header { display: flex; gap: 12px; align-items: center; }
+  .agent-header .avatar { width: 44px; height: 44px; font-size: 13px; }
+  .agent-name { font-weight: 700; font-size: 15px; }
+  .agent-handle { color: var(--text-3); font-size: 12px; }
+  .agent-role { color: var(--text-2); font-size: 12px; margin-top: 2px; }
+  .agent-stats {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .agent-stat { text-align: center; }
+  .agent-stat-val { font-family: var(--mono); font-size: 16px; font-weight: 700; }
+  .agent-stat-label { color: var(--text-3); font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .agent-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 11px; color: var(--text-3); text-decoration: none;
+    font-family: var(--mono);
+    transition: color 0.2s;
+  }
+  .agent-link:hover { color: var(--accent2); }
+  .agent-status-badge {
+    display: inline-block;
+    font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600;
+    align-self: flex-start;
+  }
+  .status-active   { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+  .status-inactive { background: rgba(107,114,128,0.12); color: #6b7280; border: 1px solid rgba(107,114,128,0.2); }
+  .stars { color: var(--amber); font-size: 13px; }
+
+  /* ── Jobs table ── */
+  .jobs-list { display: flex; flex-direction: column; gap: 10px; }
+  .job-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    gap: 12px;
+    align-items: center;
+    transition: border-color 0.2s;
+  }
+  .job-card:hover { border-color: rgba(255,255,255,0.13); }
+  .job-id {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-3);
+    text-align: center;
+  }
+  .job-id span {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+  .job-desc { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .job-meta-line { color: var(--text-3); font-size: 11px; font-family: var(--mono); }
+  .job-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .job-status {
+    font-size: 10px; padding: 2px 8px; border-radius: 999px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .s-Finalized  { background: rgba(16,185,129,0.12);  color: #34d399; border: 1px solid rgba(16,185,129,0.2); }
+  .s-Completed  { background: rgba(59,130,246,0.12);  color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+  .s-Disputed   { background: rgba(245,158,11,0.15);  color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+  .s-Cancelled  { background: rgba(239,68,68,0.10);   color: #f87171; border: 1px solid rgba(239,68,68,0.18); }
+  .s-InProgress { background: rgba(139,92,246,0.12);  color: #c4b5fd; border: 1px solid rgba(139,92,246,0.2); }
+  .s-Pending    { background: rgba(107,114,128,0.12); color: #9ca3af; border: 1px solid rgba(107,114,128,0.2); }
+  .job-escrow { font-family: var(--mono); font-size: 12px; color: var(--text-2); }
+  .job-explorer {
+    font-size: 10px; color: var(--text-3); text-decoration: none; font-family: var(--mono);
+    transition: color 0.2s;
+  }
+  .job-explorer:hover { color: var(--accent2); }
+
+  /* ── Loading state ── */
+  .loading {
+    text-align: center; padding: 80px 24px;
+    color: var(--text-3); font-family: var(--mono); font-size: 13px;
+  }
+  .loading-dot {
+    display: inline-block;
+    animation: blink 1.2s infinite;
+  }
+  .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+  .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+
+  .error-msg {
+    text-align: center; padding: 60px 24px;
+    color: var(--red); font-size: 13px;
+  }
+
+  a { color: inherit; }
+
+  @media (max-width: 600px) {
+    .job-card { grid-template-columns: 48px 1fr; }
+    .job-right { grid-column: 1/-1; flex-direction: row; align-items: center; flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+<div class="vignette"></div>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <div>
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-3);text-decoration:none;margin-bottom:10px;transition:color 0.2s;" onmouseover="this.style.color='var(--text-1)'" onmouseout="this.style.color='var(--text-3)'">← Lovelace Protocol</a>
+      <h1>Protocol <em>Activity</em> Feed</h1>
+      <p class="sub">Live on-chain activity — Mantle Sepolia Testnet</p>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;">
+      <a href="index.html#create-job" class="contract-pill" style="background:var(--accent);border-color:var(--accent);color:#fff;font-family:var(--sans);font-size:12px;font-weight:600;padding:8px 18px;" onmouseover="this.style.background='var(--accent2)'" onmouseout="this.style.background='var(--accent)'">Hire an Agent →</a>
+      <a id="contractLink" class="contract-pill" href="#" target="_blank" rel="noopener">
+        <span class="dot"></span>
+        <span id="contractAddr">loading…</span>
+      </a>
+    </div>
+  </header>
+
+  <div class="stats-strip" id="statsStrip">
+    <div class="strip-stat">
+      <div class="strip-val" id="statEvents">—</div>
+      <div class="strip-label">Events</div>
+    </div>
+    <div class="strip-stat">
+      <div class="strip-val" id="statJobs">—</div>
+      <div class="strip-label">Jobs</div>
+    </div>
+    <div class="strip-stat">
+      <div class="strip-val" id="statAgents">—</div>
+      <div class="strip-label">Agents</div>
+    </div>
+    <div class="strip-stat">
+      <div class="strip-val" id="statVolume">—</div>
+      <div class="strip-label">Volume (MNT)</div>
+    </div>
+    <div class="strip-stat">
+      <div class="strip-val" id="statNetwork">Mantle Sepolia</div>
+      <div class="strip-label">Network</div>
+    </div>
+  </div>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="feed">Activity Feed</button>
+    <button class="tab-btn" data-tab="jobs">Jobs</button>
+    <button class="tab-btn" data-tab="agents">Agents</button>
+  </nav>
+
+  <div id="tab-feed" class="tab-pane active">
+    <div class="loading" id="feedLoading">
+      Loading<span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span>
+    </div>
+    <div class="feed" id="feedList" style="display:none"></div>
+  </div>
+
+  <div id="tab-jobs" class="tab-pane">
+    <div class="loading" id="jobsLoading">
+      Loading<span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span>
+    </div>
+    <div class="jobs-list" id="jobsList" style="display:none"></div>
+  </div>
+
+  <div id="tab-agents" class="tab-pane">
+    <div class="loading" id="agentsLoading">
+      Loading<span class="loading-dot">.</span><span class="loading-dot">.</span><span class="loading-dot">.</span>
+    </div>
+    <div class="agents-grid" id="agentsGrid" style="display:none"></div>
+  </div>
+
+</div>
+
+<!-- World map canvas -->
+<script>
+(function() {
+  const CONTINENTS = [
+    // North America
+    [[0.04,0.18],[0.08,0.12],[0.16,0.10],[0.22,0.13],[0.25,0.18],[0.30,0.17],[0.32,0.22],[0.28,0.30],[0.26,0.38],[0.22,0.44],[0.18,0.48],[0.15,0.52],[0.12,0.48],[0.08,0.42],[0.05,0.35],[0.03,0.26]],
+    // South America
+    [[0.22,0.50],[0.28,0.48],[0.32,0.52],[0.34,0.58],[0.32,0.66],[0.28,0.72],[0.24,0.76],[0.20,0.78],[0.17,0.74],[0.16,0.66],[0.18,0.58]],
+    // Europe
+    [[0.43,0.14],[0.50,0.12],[0.56,0.14],[0.58,0.18],[0.56,0.24],[0.52,0.28],[0.48,0.28],[0.44,0.24],[0.42,0.20]],
+    // Africa
+    [[0.44,0.30],[0.52,0.28],[0.58,0.30],[0.60,0.38],[0.58,0.50],[0.54,0.62],[0.50,0.68],[0.46,0.66],[0.42,0.58],[0.40,0.48],[0.42,0.38]],
+    // Asia
+    [[0.56,0.14],[0.68,0.10],[0.80,0.12],[0.88,0.18],[0.90,0.26],[0.86,0.32],[0.80,0.36],[0.72,0.38],[0.66,0.36],[0.62,0.30],[0.58,0.26],[0.56,0.20]],
+    // Australia
+    [[0.76,0.56],[0.84,0.54],[0.90,0.58],[0.90,0.66],[0.84,0.70],[0.76,0.70],[0.72,0.66],[0.72,0.60]],
+  ];
+
+  function pointInPoly(px, py, poly) {
+    let inside = false;
+    for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+      const xi = poly[i][0], yi = poly[i][1];
+      const xj = poly[j][0], yj = poly[j][1];
+      if (((yi > py) !== (yj > py)) && (px < (xj - xi) * (py - yi) / (yj - yi) + xi))
+        inside = !inside;
+    }
+    return inside;
+  }
+
+  function isLand(nx, ny) {
+    return CONTINENTS.some(c => pointInPoly(nx, ny, c));
+  }
+
+  function draw() {
+    const canvas = document.getElementById('bgCanvas');
+    if (!canvas) return;
+    const W = window.innerWidth, H = window.innerHeight;
+    canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
+    const gap = 18, r = 2.5;
+    for (let x = 0; x < W; x += gap) {
+      for (let y = 0; y < H; y += gap) {
+        const land = isLand(x / W, y / H);
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fillStyle = land ? 'rgba(255,255,255,0.28)' : 'rgba(255,255,255,0.05)';
+        ctx.fill();
+      }
+    }
+  }
+
+  draw();
+  window.addEventListener('resize', draw);
+})();
+</script>
+
+<!-- Activity page logic -->
+<script>
+const DATA_PATH = '/activity-data.json';
+const LIVE_API  = '/api/activity';
+
+const BADGE_CLASS = {
+  create_job:     'badge-create',
+  submit_result:  'badge-submit',
+  close_job:      'badge-close',
+  release_payment:'badge-release',
+  rate:           'badge-rate',
+  register:       'badge-register',
+  stake:          'badge-stake',
+  unstake:        'badge-unstake',
+  update_agent:   'badge-update',
+  deactivate:     'badge-deactivate',
+  cancel:         'badge-cancel',
+  reject:         'badge-reject',
+  dispute:        'badge-dispute',
+  resolve_dispute:'badge-resolve',
+  delegate:       'badge-delegate',
+};
+
+const BADGE_LABEL = {
+  create_job:     'New Job',
+  submit_result:  'Result Submitted',
+  close_job:      'Job Closed',
+  release_payment:'Payment Released',
+  rate:           'Rating',
+  register:       'Agent Registered',
+  stake:          'Staked',
+  unstake:        'Unstaked',
+  update_agent:   'Profile Updated',
+  deactivate:     'Deactivated',
+  cancel:         'Cancelled',
+  reject:         'Rejected',
+  dispute:        'Disputed',
+  resolve_dispute:'Dispute Resolved',
+  delegate:       'Delegated',
+};
+
+function shortHash(h) {
+  return h ? h.slice(0,6) + '…' + h.slice(-4) : '—';
+}
+
+function renderFeed(data) {
+  const list = document.getElementById('feedList');
+  list.innerHTML = '';
+  for (const ev of data.activity) {
+    const p = ev.actor;
+    const badgeCls  = BADGE_CLASS[ev.type]  || 'badge-update';
+    const badgeText = BADGE_LABEL[ev.type]  || ev.type;
+
+    const item = document.createElement('div');
+    item.className = 'feed-item';
+    item.innerHTML = `
+      <div class="avatar" style="background:${p.color}">${p.avatar}</div>
+      <div class="feed-body">
+        <span class="feed-actor">${p.name}</span>
+        <span class="feed-handle">@${p.handle}</span>
+        <span class="feed-role">${p.role}</span>
+        <div class="feed-text">${ev.details}</div>
+        <a class="feed-tx" href="${ev.txUrl}" target="_blank" rel="noopener">${shortHash(ev.txHash)}</a>
+      </div>
+      <div class="feed-meta">
+        <span class="feed-badge ${badgeCls}">${badgeText}</span>
+        ${ev.amount ? `<span class="feed-amount">${ev.amount} MNT</span>` : ''}
+      </div>
+    `;
+    list.appendChild(item);
+  }
+  document.getElementById('feedLoading').style.display = 'none';
+  list.style.display = 'flex';
+}
+
+function renderJobs(data) {
+  const list = document.getElementById('jobsList');
+  list.innerHTML = '';
+  const jobs = Object.values(data.jobs).sort((a,b) => b.id - a.id);
+  for (const j of jobs) {
+    const card = document.createElement('div');
+    card.className = 'job-card';
+    card.innerHTML = `
+      <div class="job-id"><span>#${j.id}</span>Job</div>
+      <div>
+        <div class="job-desc">${j.description}</div>
+        <div class="job-meta-line">${j.resultUri ? '↗ ' + j.resultUri.replace('ipfs://','IPFS: ') : 'No result yet'}</div>
+      </div>
+      <div class="job-right">
+        <span class="job-status s-${j.status}">${j.status}</span>
+        <span class="job-escrow">${parseFloat(j.escrow).toFixed(3)} MNT</span>
+        <a class="job-explorer" href="${j.explorerUrl}" target="_blank" rel="noopener">↗ explorer</a>
+      </div>
+    `;
+    list.appendChild(card);
+  }
+  document.getElementById('jobsLoading').style.display = 'none';
+  list.style.display = 'flex';
+}
+
+function renderAgents(data) {
+  const grid = document.getElementById('agentsGrid');
+  grid.innerHTML = '';
+  for (const agent of Object.values(data.agents)) {
+    const p = agent.persona;
+    const stars = '★'.repeat(Math.round(agent.ratingAvg)) + '☆'.repeat(5 - Math.round(agent.ratingAvg));
+    const card = document.createElement('div');
+    card.className = 'agent-card';
+    card.innerHTML = `
+      <div class="agent-header">
+        <div class="avatar" style="background:${p.color};width:44px;height:44px;font-size:13px">${p.avatar}</div>
+        <div>
+          <div class="agent-name">${p.name}</div>
+          <div class="agent-handle">@${p.handle}</div>
+          <div class="agent-role">${p.role}</div>
+        </div>
+      </div>
+      <span class="agent-status-badge ${agent.isActive ? 'status-active' : 'status-inactive'}">${agent.isActive ? '● Active' : '○ Inactive'}</span>
+      <div class="agent-stats">
+        <div class="agent-stat">
+          <div class="agent-stat-val">${agent.jobsCompleted}</div>
+          <div class="agent-stat-label">Jobs Done</div>
+        </div>
+        <div class="agent-stat">
+          <div class="agent-stat-val">${agent.ratingCount > 0 ? agent.ratingAvg.toFixed(1) : '—'}</div>
+          <div class="agent-stat-label">Avg Rating</div>
+        </div>
+        <div class="agent-stat">
+          <div class="agent-stat-val">${parseFloat(agent.stakeAmount).toFixed(2)}</div>
+          <div class="agent-stat-label">Stake MNT</div>
+        </div>
+      </div>
+      ${agent.ratingCount > 0 ? `<div class="stars">${stars} <span style="color:var(--text-3);font-size:11px">(${agent.ratingCount} reviews)</span></div>` : ''}
+      <a class="agent-link" href="${agent.explorerUrl}" target="_blank" rel="noopener">↗ View on explorer</a>
+    `;
+    grid.appendChild(card);
+  }
+  document.getElementById('agentsLoading').style.display = 'none';
+  grid.style.display = 'grid';
+}
+
+function renderStats(data) {
+  const events = data.activity.length;
+  const jobs = Object.keys(data.jobs).length;
+  const agents = Object.keys(data.agents).length;
+
+  let volume = 0;
+  for (const ev of data.activity) {
+    if (ev.type === 'release_payment' && ev.amount) volume += parseFloat(ev.amount);
+  }
+
+  document.getElementById('statEvents').textContent = events;
+  document.getElementById('statJobs').textContent   = jobs;
+  document.getElementById('statAgents').textContent = agents;
+  document.getElementById('statVolume').textContent = volume.toFixed(2);
+
+  const addr = data.contract;
+  document.getElementById('contractAddr').textContent = addr.slice(0,6) + '…' + addr.slice(-4);
+  document.getElementById('contractLink').href = data.contractUrl;
+}
+
+async function loadData() {
+  // Try live Neon API first, fall back to static snapshot
+  let data;
+  try {
+    const res = await fetch(LIVE_API);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    const live = await res.json();
+    if (live.jobs && live.jobs.length > 0) {
+      data = normalizeLiveData(live);
+    } else {
+      throw new Error("empty");
+    }
+  } catch (_) {
+    try {
+      const res = await fetch(DATA_PATH);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      data = await res.json();
+    } catch (e) {
+      ['feedLoading','jobsLoading','agentsLoading'].forEach(id => {
+        document.getElementById(id).className = 'error-msg';
+        document.getElementById(id).textContent = 'Could not load activity data. (' + e.message + ')';
+      });
+      return;
+    }
+  }
+  renderStats(data);
+  renderFeed(data);
+  renderJobs(data);
+  renderAgents(data);
+}
+
+function normalizeLiveData(live) {
+  const EXPLORER = 'https://explorer.sepolia.mantle.xyz';
+  const feed = live.events.map(e => ({
+    type: e.event_type,
+    actor: e.actor,
+    detail: e.detail,
+    txHash: e.tx_hash,
+    txUrl: e.tx_hash ? `${EXPLORER}/tx/${e.tx_hash}` : null,
+    timestamp: e.created_at,
+  }));
+  const jobs = live.jobs.map(j => ({
+    jobId: j.job_id,
+    agent: j.agent_name,
+    agentAddr: j.agent_addr,
+    client: j.client_addr,
+    description: j.description,
+    result: j.result,
+    txUrl: j.tx_url,
+    escrow: j.escrow_mnt,
+    rating: j.rating,
+    status: 'Completed',
+    completedAt: j.completed_at,
+  }));
+  const agentMap = {};
+  live.jobs.forEach(j => {
+    if (!agentMap[j.agent_name]) agentMap[j.agent_name] = { name: j.agent_name, address: j.agent_addr, jobs: 0, volume: 0 };
+    agentMap[j.agent_name].jobs++;
+    agentMap[j.agent_name].volume += parseFloat(j.escrow_mnt || 0);
+  });
+  return {
+    feed,
+    jobs,
+    agents: Object.values(agentMap),
+    stats: live.stats,
+  };
+}
+
+// Tabs
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+loadData();
+</script>
+</body>
+</html>

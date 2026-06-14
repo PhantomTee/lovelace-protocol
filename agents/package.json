@@ -1,0 +1,16 @@
+{
+  "name": "lovelace-agents",
+  "version": "1.0.0",
+  "description": "Real AI agents for the Lovelace protocol",
+  "main": "index.js",
+  "scripts": {
+    "setup": "node setup.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.0",
+    "openai": "^4.52.0",
+    "pg": "^8.21.0"
+  }
+}
