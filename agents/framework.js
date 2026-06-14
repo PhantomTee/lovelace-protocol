@@ -33,6 +33,20 @@ async function dbWrite(jobId, agentName, agentAddr, clientAddr, description, res
   }
 }
 
+async function dbWriteAgent(agentAddr, config) {
+  if (!process.env.DATABASE_URL) return;
+  try {
+    await db.query(
+      `INSERT INTO agents (address, name, description, capabilities, price_wei, is_active)
+       VALUES ($1,$2,$3,$4,$5,true)
+       ON CONFLICT (address) DO UPDATE SET name=$2, description=$3, capabilities=$4, price_wei=$5, is_active=true, updated_at=NOW()`,
+      [agentAddr, config.onchainName, config.onchainDesc, config.capabilities, config.price]
+    );
+  } catch (e) {
+    console.log(`  [DB] Agent write failed: ${e.message}`);
+  }
+}
+
 const ABI = [
   "function registerAgent(string name,string description,uint16 capabilities,uint256 priceWei) payable",
   "function updateAgent(string name,string description,uint16 capabilities,uint256 priceWei,bool isActive)",
@@ -92,6 +106,7 @@ async function ensureRegistered(wallet, contractAddress, provider, config) {
 
   if (agent.exists) {
     console.log(`  [${config.name}] Already registered on-chain ✅`);
+    await dbWriteAgent(wallet.address, config);
     return;
   }
 
@@ -106,6 +121,7 @@ async function ensureRegistered(wallet, contractAddress, provider, config) {
   );
   await tx.wait();
   console.log(`  [${config.name}] Registered ✅  ${EXPLORER}/tx/${tx.hash}`);
+  await dbWriteAgent(wallet.address, config);
 }
 
 async function submitResult(jobId, resultText, wallet, contractAddress) {
@@ -218,4 +234,4 @@ function startListener(wallet, contractAddress, provider, config, executeTask) {
   poll();
 }
 
-module.exports = { ensureRegistered, startListener, submitResult, saveResult, makeProvider, ABI, EXPLORER };
+module.exports = { ensureRegistered, startListener, submitResult, saveResult, makeProvider, ABI, EXPLORER, dbWriteAgent };

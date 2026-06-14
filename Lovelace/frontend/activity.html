@@ -643,14 +643,20 @@ function renderStats(data) {
 }
 
 async function loadData() {
-  // Try live Neon API first, fall back to static snapshot
   let data;
   try {
-    const res = await fetch(LIVE_API);
-    if (!res.ok) throw new Error(`API ${res.status}`);
-    const live = await res.json();
+    // Fetch live activity and agents in parallel
+    const [actRes, agentsRes] = await Promise.all([
+      fetch(LIVE_API),
+      fetch('/api/agents').catch(() => null),
+    ]);
+
+    if (!actRes.ok) throw new Error(`API ${actRes.status}`);
+    const live       = await actRes.json();
+    const liveAgents = agentsRes && agentsRes.ok ? (await agentsRes.json()).agents : [];
+
     if (live.jobs && live.jobs.length > 0) {
-      data = normalizeLiveData(live);
+      data = normalizeLiveData(live, liveAgents);
     } else {
       throw new Error("empty");
     }
@@ -673,40 +679,78 @@ async function loadData() {
   renderAgents(data);
 }
 
-function normalizeLiveData(live) {
+function normalizeLiveData(live, liveAgents) {
   const EXPLORER = 'https://explorer.sepolia.mantle.xyz';
-  const feed = live.events.map(e => ({
-    type: e.event_type,
-    actor: e.actor,
-    detail: e.detail,
-    txHash: e.tx_hash,
-    txUrl: e.tx_hash ? `${EXPLORER}/tx/${e.tx_hash}` : null,
+
+  const activity = live.events.map(e => ({
+    type:      e.event_type,
+    actor:     { name: e.actor, handle: e.actor, role: '', avatar: (e.actor || '?')[0].toUpperCase(), color: '#6b7280' },
+    details:   e.detail,
+    txHash:    e.tx_hash,
+    txUrl:     e.tx_hash ? `${EXPLORER}/tx/${e.tx_hash}` : null,
     timestamp: e.created_at,
+    amount:    null,
   }));
-  const jobs = live.jobs.map(j => ({
-    jobId: j.job_id,
-    agent: j.agent_name,
-    agentAddr: j.agent_addr,
-    client: j.client_addr,
-    description: j.description,
-    result: j.result,
-    txUrl: j.tx_url,
-    escrow: j.escrow_mnt,
-    rating: j.rating,
-    status: 'Completed',
-    completedAt: j.completed_at,
-  }));
-  const agentMap = {};
+
+  const jobsObj = {};
   live.jobs.forEach(j => {
-    if (!agentMap[j.agent_name]) agentMap[j.agent_name] = { name: j.agent_name, address: j.agent_addr, jobs: 0, volume: 0 };
-    agentMap[j.agent_name].jobs++;
-    agentMap[j.agent_name].volume += parseFloat(j.escrow_mnt || 0);
+    jobsObj[j.job_id] = {
+      id:          j.job_id,
+      description: j.description,
+      resultUri:   j.result || '',
+      status:      'Finalized',
+      escrow:      j.escrow_mnt || '0',
+      explorerUrl: j.tx_url || `${EXPLORER}/address/0xCE43B018cCc600703890c84BdEd478129A189043`,
+    };
   });
+
+  const agentsObj = {};
+  if (liveAgents && liveAgents.length > 0) {
+    liveAgents.forEach((a, i) => {
+      const colors = ['#7c3aed','#0891b2','#059669','#d97706','#be185d','#4b5563'];
+      agentsObj[a.address] = {
+        persona:       { name: a.name, handle: a.address.slice(0,8), role: a.description || '', avatar: a.name[0].toUpperCase(), color: colors[i % colors.length] },
+        address:       a.address,
+        name:          a.name,
+        isActive:      a.is_active,
+        ratingAvg:     0,
+        ratingCount:   0,
+        jobsCompleted: a.jobs_completed || 0,
+        stakeAmount:   a.stake_amount || '0',
+        explorerUrl:   `${EXPLORER}/address/${a.address}`,
+      };
+    });
+  } else {
+    // Fall back to building agent list from job data
+    live.jobs.forEach((j, i) => {
+      if (!agentsObj[j.agent_addr]) {
+        const colors = ['#7c3aed','#0891b2','#059669','#d97706'];
+        agentsObj[j.agent_addr] = {
+          persona:       { name: j.agent_name, handle: j.agent_addr.slice(0,8), role: 'AI Agent', avatar: j.agent_name[0].toUpperCase(), color: colors[i % colors.length] },
+          address:       j.agent_addr,
+          name:          j.agent_name,
+          isActive:      true,
+          ratingAvg:     0,
+          ratingCount:   0,
+          jobsCompleted: 0,
+          stakeAmount:   '0',
+          explorerUrl:   `${EXPLORER}/address/${j.agent_addr}`,
+        };
+      }
+      agentsObj[j.agent_addr].jobsCompleted++;
+    });
+  }
+
+  let volume = 0;
+  live.jobs.forEach(j => { volume += parseFloat(j.escrow_mnt || 0); });
+
   return {
-    feed,
-    jobs,
-    agents: Object.values(agentMap),
-    stats: live.stats,
+    activity,
+    jobs:    jobsObj,
+    agents:  agentsObj,
+    stats:   { ...live.stats, volumeMnt: volume.toFixed(4) },
+    contract: '0xCE43B018cCc600703890c84BdEd478129A189043',
+    contractUrl: `${EXPLORER}/address/0xCE43B018cCc600703890c84BdEd478129A189043`,
   };
 }
 

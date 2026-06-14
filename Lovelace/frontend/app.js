@@ -1,16 +1,17 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Lovelace — Mantle Sepolia Frontend
-// Update CONTRACT_ADDRESS after deploying Lovelace.sol
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CONTRACT_ADDRESS = "0xCE43B018cCc600703890c84BdEd478129A189043";
+const AGENTS_API       = "/api/agents";
+const EXPLORER         = "https://explorer.sepolia.mantle.xyz";
 
 const MANTLE_SEPOLIA = {
-  chainId: "0x138B",       // 5003 in hex
+  chainId: "0x138B",
   chainName: "Mantle Sepolia Testnet",
   nativeCurrency: { name: "MNT", symbol: "MNT", decimals: 18 },
   rpcUrls: ["https://rpc.sepolia.mantle.xyz"],
-  blockExplorerUrls: ["https://explorer.sepolia.mantle.xyz"]
+  blockExplorerUrls: [EXPLORER]
 };
 
 const ABI = [
@@ -26,6 +27,7 @@ const ABI = [
   "function unstakeAgent(uint256 amount)",
   "function invokeAgent(address agentOwner,string description,uint256 autoReleaseDelay,address arbiter,uint16 arbiterFeeBps,bytes32 resultSpecHash) payable returns (uint256)",
   "function updateJob(uint256 jobId,string resultUri,bytes32 resultContentHash)",
+  "function attestResult(uint256 jobId)",
   "function rejectJob(uint256 jobId)",
   "function closeJob(uint256 jobId)",
   "function cancelJob(uint256 jobId)",
@@ -81,10 +83,26 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// ─── Browser Notifications ───
+function requestNotificationPermission() {
+  if ("Notification" in window && Notification.permission === "default") {
+    Notification.requestPermission();
+  }
+}
+
+function sendNotification(title, body, tag) {
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification(title, { body, tag });
+  }
+}
+
 // ─── Wallet ───
 async function connectWallet() {
   if (!window.ethereum) {
-    showToast("MetaMask not found. Please install it.", "error");
+    const btn = document.getElementById("connectBtn");
+    btn.textContent = "Install MetaMask";
+    btn.onclick = () => window.open("https://metamask.io/download/", "_blank");
+    showToast("No wallet found — click the button to install MetaMask.", "error");
     return;
   }
   try {
@@ -108,14 +126,15 @@ async function connectWallet() {
     }
 
     provider = new ethers.BrowserProvider(window.ethereum);
-    signer = await provider.getSigner();
-    account = await signer.getAddress();
+    signer   = await provider.getSigner();
+    account  = await signer.getAddress();
 
     if (CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000") {
       contract = new ethers.Contract(CONTRACT_ADDRESS, ABI, signer);
       subscribeToEvents();
     }
 
+    requestNotificationPermission();
     onAccountChange();
     showToast(`Connected: ${shortAddr(account)}`, "success");
   } catch (e) {
@@ -169,74 +188,135 @@ async function checkRegistrationStatus() {
     const a = await contract.getAgent(account);
     if (a.exists) {
       document.getElementById("alreadyRegistered").style.display = "block";
-      document.getElementById("regName").value = a.name;
-      document.getElementById("regDesc").value = a.description;
+      document.getElementById("regName").value  = a.name;
+      document.getElementById("regDesc").value  = a.description;
       document.getElementById("regPrice").value = ethers.formatEther(a.priceWei);
     }
   } catch (_) {}
 }
 
-// ─── Agents ───
+// ─── Agent loading ───
+// Loads agents from the /api/agents endpoint (no wallet needed),
+// then enriches with live on-chain data when a wallet is connected.
 async function loadAgents() {
-  if (!contract) { showToast("Connect wallet first.", "error"); return; }
   const grid = document.getElementById("agentGrid");
   grid.innerHTML = '<div class="empty-state">Loading...</div>';
 
   try {
-    const filter = contract.filters.AgentRegistered();
-    const events = await contract.queryFilter(filter, 39940000, "latest");
-    allAgentAddresses = [...new Set(events.map(e => e.args[0]))];
-    document.getElementById("statAgents").textContent = allAgentAddresses.length;
+    const apiAgents = await fetchAgentsFromApi();
 
-    if (allAgentAddresses.length === 0) {
+    if (apiAgents.length === 0) {
       grid.innerHTML = '<div class="empty-state">No agents registered yet. Be the first!</div>';
       return;
     }
 
-    const profiles = await Promise.all(allAgentAddresses.map(addr => contract.getAgent(addr)));
-    grid.innerHTML = "";
-    profiles.forEach((a, i) => {
-      if (!a.exists) return;
-      grid.appendChild(agentCard(a, allAgentAddresses[i], false, "agents"));
-    });
+    document.getElementById("statAgents").textContent = apiAgents.length;
+
+    if (contract) {
+      const profiles = await Promise.all(apiAgents.map(a => contract.getAgent(a.address)));
+      grid.innerHTML = "";
+      profiles.forEach((a, i) => {
+        if (!a.exists) return;
+        grid.appendChild(agentCard(a, apiAgents[i].address, false, "agents"));
+      });
+    } else {
+      grid.innerHTML = "";
+      apiAgents.forEach(a => grid.appendChild(agentCardFromDb(a)));
+    }
   } catch (e) {
     grid.innerHTML = `<div class="empty-state">Error: ${e.message}</div>`;
   }
 }
 
 async function loadAgentsForJobSelect() {
-  if (!contract) return;
   const grid = document.getElementById("agentSelectGrid");
   grid.innerHTML = '<div class="empty-state" style="font-size:0.75rem;">Loading...</div>';
 
   try {
-    const filter = contract.filters.AgentRegistered();
-    const events = await contract.queryFilter(filter, 39940000, "latest");
-    const addrs = [...new Set(events.map(e => e.args[0]))].filter(a => a.toLowerCase() !== account.toLowerCase());
+    const apiAgents = await fetchAgentsFromApi();
+    const addrs = apiAgents.map(a => a.address).filter(a => a.toLowerCase() !== (account || "").toLowerCase());
 
     if (addrs.length === 0) {
       grid.innerHTML = '<div class="empty-state" style="font-size:0.75rem;">No other agents found.</div>';
       return;
     }
 
+    if (contract) {
+      const profiles = await Promise.all(addrs.map(addr => contract.getAgent(addr)));
+      grid.innerHTML = "";
+      profiles.forEach((a, i) => {
+        if (!a.exists || !a.isActive) return;
+        grid.appendChild(agentCard(a, addrs[i], true, "select"));
+      });
+    } else {
+      grid.innerHTML = "";
+      apiAgents.filter(a => a.is_active).forEach(a => {
+        const el = agentCardFromDb(a);
+        el.onclick = () => selectAgentForJob(a.address, a.name, el);
+        grid.appendChild(el);
+      });
+    }
+  } catch (_) {
+    // Fall back to on-chain event query when wallet is connected but API is down
+    if (contract) await loadAgentsOnChain(grid, true);
+    else grid.innerHTML = '<div class="empty-state" style="font-size:0.75rem;">Error loading agents.</div>';
+  }
+}
+
+async function fetchAgentsFromApi() {
+  const res = await fetch(AGENTS_API);
+  if (!res.ok) throw new Error(`API ${res.status}`);
+  const data = await res.json();
+  return data.agents || [];
+}
+
+async function loadAgentsOnChain(grid, forSelect) {
+  try {
+    const filter = contract.filters.AgentRegistered();
+    const events = await contract.queryFilter(filter, 39940000, "latest");
+    const addrs  = [...new Set(events.map(e => e.args[0]))]
+      .filter(a => !forSelect || a.toLowerCase() !== account.toLowerCase());
+
+    if (addrs.length === 0) {
+      grid.innerHTML = '<div class="empty-state" style="font-size:0.75rem;">No agents found.</div>';
+      return;
+    }
+
     const profiles = await Promise.all(addrs.map(addr => contract.getAgent(addr)));
     grid.innerHTML = "";
     profiles.forEach((a, i) => {
-      if (!a.exists || !a.isActive) return;
-      grid.appendChild(agentCard(a, addrs[i], true, "select"));
+      if (!a.exists || (forSelect && !a.isActive)) return;
+      grid.appendChild(agentCard(a, addrs[i], forSelect, forSelect ? "select" : "agents"));
     });
-  } catch (_) {
-    grid.innerHTML = '<div class="empty-state" style="font-size:0.75rem;">Error loading agents.</div>';
+  } catch (e) {
+    grid.innerHTML = `<div class="empty-state">Error: ${e.message}</div>`;
   }
+}
+
+function agentCardFromDb(a) {
+  const div = document.createElement("div");
+  div.className = "agent-card";
+  div.innerHTML = `
+    <div class="agent-name">${escHtml(a.name)}</div>
+    <div class="agent-desc">${escHtml(a.description || "")}</div>
+    <div style="margin-bottom:8px;">${capTags(Number(a.capabilities || 0))}</div>
+    <div class="agent-meta">
+      <span class="agent-price">${a.price_wei || "—"} MNT</span>
+      <span style="color:var(--text-dim);font-size:0.68rem;">${a.jobs_completed || 0} jobs</span>
+    </div>
+    <div style="margin-top:8px;font-size:0.65rem;color:var(--text-dim);">${shortAddr(a.address)}</div>
+    ${!a.is_active ? '<div style="margin-top:6px;color:var(--danger);font-size:0.7rem;">⚠ Inactive</div>' : ''}
+  `;
+  return div;
 }
 
 function agentCard(a, addr, selectable, ctx) {
   const avgRating = a.ratingCount > 0 ? (Number(a.ratingSum) / Number(a.ratingCount)).toFixed(1) : "—";
-  const stars = a.ratingCount > 0 ? "★".repeat(Math.round(Number(a.ratingSum) / Number(a.ratingCount))) : "—";
-  const caps = capTags(Number(a.capabilities));
+  const stars     = a.ratingCount > 0 ? "★".repeat(Math.round(Number(a.ratingSum) / Number(a.ratingCount))) : "—";
+  const caps      = capTags(Number(a.capabilities));
 
   const div = document.createElement("div");
-  div.className = "agent-card" + (selectable ? "" : "");
+  div.className = "agent-card";
   div.innerHTML = `
     <div class="agent-name">${escHtml(a.name)}</div>
     <div class="agent-desc">${escHtml(a.description)}</div>
@@ -250,10 +330,7 @@ function agentCard(a, addr, selectable, ctx) {
     ${!a.isActive ? '<div style="margin-top:6px;color:var(--danger);font-size:0.7rem;">⚠ Inactive</div>' : ''}
   `;
 
-  if (selectable) {
-    div.onclick = () => selectAgentForJob(addr, a.name, div);
-  }
-
+  if (selectable) div.onclick = () => selectAgentForJob(addr, a.name, div);
   return div;
 }
 
@@ -275,14 +352,14 @@ function selectAgentForJob(addr, name, el) {
 // ─── Register Agent ───
 async function registerAgent() {
   if (!contract) { showToast("Connect wallet first.", "error"); return; }
-  const name = document.getElementById("regName").value.trim();
-  const desc = document.getElementById("regDesc").value.trim();
+  const name  = document.getElementById("regName").value.trim();
+  const desc  = document.getElementById("regDesc").value.trim();
   const price = document.getElementById("regPrice").value;
   const stake = document.getElementById("regStake").value;
 
   if (!name || !price || !stake) { showToast("Fill all required fields.", "error"); return; }
 
-  const caps = getCaps();
+  const caps     = getCaps();
   const priceWei = ethers.parseEther(price);
   const stakeWei = ethers.parseEther(stake);
 
@@ -300,10 +377,10 @@ async function registerAgent() {
 
 async function updateAgent() {
   if (!contract) { showToast("Connect wallet first.", "error"); return; }
-  const name = document.getElementById("regName").value.trim();
-  const desc = document.getElementById("regDesc").value.trim();
+  const name  = document.getElementById("regName").value.trim();
+  const desc  = document.getElementById("regDesc").value.trim();
   const price = document.getElementById("regPrice").value;
-  const caps = getCaps();
+  const caps  = getCaps();
 
   try {
     showToast("Sending update...");
@@ -353,25 +430,25 @@ async function createJob() {
   const agentAddr = document.getElementById("selectedAgent").value;
   if (!agentAddr) { showToast("Select an agent first.", "error"); return; }
 
-  const desc    = document.getElementById("jobDesc").value.trim();
-  const escrow  = document.getElementById("jobEscrow").value;
-  const arHours = parseInt(document.getElementById("jobAutoRelease").value) || 0;
-  const arbiter = document.getElementById("jobArbiter").value.trim() || ethers.ZeroAddress;
-  const arbFee  = parseInt(document.getElementById("jobArbiterFee").value) || 0;
+  const desc     = document.getElementById("jobDesc").value.trim();
+  const escrow   = document.getElementById("jobEscrow").value;
+  const arHours  = parseInt(document.getElementById("jobAutoRelease").value) || 0;
+  const arbiter  = document.getElementById("jobArbiter").value.trim() || ethers.ZeroAddress;
+  const arbFee   = parseInt(document.getElementById("jobArbiterFee").value) || 0;
 
   if (!desc || !escrow) { showToast("Fill description and escrow amount.", "error"); return; }
 
   const autoReleaseDelay = arHours * 3600;
-  const arbiterFeeBps = arbFee * 100;
+  const arbiterFeeBps    = arbFee * 100;
 
   try {
     showToast("Creating job...");
     const tx = await contract.invokeAgent(
-      agentAddr, desc, autoReleaseDelay, arbiter, arbiterFeeBps,
+      agentAddr, desc, autoReleaseDelay, arbiter, arbiterFeeBps, ethers.ZeroHash,
       { value: ethers.parseEther(escrow) }
     );
     showToast("Waiting for confirmation...");
-    const receipt = await tx.wait();
+    await tx.wait();
     showToast(`Job created! Tx: ${shortAddr(tx.hash)}`, "success");
     loadMyJobs();
   } catch (e) {
@@ -392,7 +469,7 @@ async function loadMyJobs() {
     const batchSize = 20;
     for (let i = 1; i <= total; i += batchSize) {
       const batch = Array.from({ length: Math.min(batchSize, total - i + 1) }, (_, k) => i + k);
-      const jobs = await Promise.all(batch.map(id => contract.getJob(id).then(j => ({ id, ...j }))));
+      const jobs  = await Promise.all(batch.map(id => contract.getJob(id).then(j => ({ id, ...j }))));
       jobs.forEach(j => {
         if (!j.exists) return;
         const addr = account.toLowerCase();
@@ -425,7 +502,7 @@ function renderJobs() {
 
 function filterJobs(f) {
   currentJobFilter = f;
-  ["all","client","agent"].forEach(x => {
+  ["all", "client", "agent"].forEach(x => {
     document.getElementById("filter" + x.charAt(0).toUpperCase() + x.slice(1))
       .classList.toggle("btn-primary", x === f);
   });
@@ -434,8 +511,9 @@ function filterJobs(f) {
 
 function buildJobCard(job) {
   const isClient = job.client.toLowerCase() === account.toLowerCase();
-  const isAgent  = job.agent.toLowerCase() === account.toLowerCase();
-  const status = JOB_STATUS[job.status];
+  const isAgent  = job.agent.toLowerCase()  === account.toLowerCase();
+  const status   = JOB_STATUS[job.status];
+  const hasResult = job.resultContentHash && job.resultContentHash !== ethers.ZeroHash;
 
   const div = document.createElement("div");
   div.className = "job-card";
@@ -445,7 +523,8 @@ function buildJobCard(job) {
       <span class="status-badge status-${status}">${status}</span>
     </div>
     <div class="job-desc">${escHtml(job.description)}</div>
-    ${job.resultUri ? `<div style="font-size:0.75rem;color:var(--mantle);margin-bottom:6px;">Result: <a class="tx-link" href="${escHtml(job.resultUri)}" target="_blank">${escHtml(job.resultUri)}</a></div>` : ''}
+    ${job.resultUri ? `<div style="font-size:0.75rem;color:var(--mantle);margin-bottom:6px;">Result: <a class="tx-link" href="${escHtml(job.resultUri)}" target="_blank">${escHtml(job.resultUri)}</a></div>` : ""}
+    ${hasResult && status === "Completed" ? `<div style="font-size:0.72rem;margin-bottom:6px;color:${job.resultAttested ? "#10b981" : "var(--text-dim)"};">${job.resultAttested ? "✅ Result attested" : "⏳ Awaiting attestation"}</div>` : ""}
     <div class="job-meta">
       <div><div class="meta-item">Escrow</div><div class="meta-value">${ethers.formatEther(job.escrowAmount)} MNT</div></div>
       <div><div class="meta-item">Agent</div><div class="meta-value">${shortAddr(job.agent)}</div></div>
@@ -455,11 +534,11 @@ function buildJobCard(job) {
   `;
 
   const actions = div.querySelector(`#actions-${job.id}`);
-  buildJobActions(actions, job, isClient, isAgent, status);
+  buildJobActions(actions, job, isClient, isAgent, status, hasResult);
   return div;
 }
 
-function buildJobActions(el, job, isClient, isAgent, status) {
+function buildJobActions(el, job, isClient, isAgent, status, hasResult) {
   const btn = (label, cls, fn) => {
     const b = document.createElement("button");
     b.className = `btn ${cls} btn-sm`;
@@ -470,19 +549,22 @@ function buildJobActions(el, job, isClient, isAgent, status) {
 
   if (isAgent && status === "Pending") {
     btn("Submit Result", "btn-accent", () => openSubmitResult(job.id));
-    btn("Reject Job", "btn-danger", () => rejectJob(job.id));
+    btn("Reject Job",    "btn-danger",  () => rejectJob(job.id));
   }
   if (isAgent && status === "InProgress") {
-    btn("Submit Result", "btn-accent", () => openSubmitResult(job.id));
-    btn("Close Job", "btn-primary", () => closeJob(job.id));
-    btn("Delegate Sub-Task", "btn-secondary", () => openDelegate(job.id));
+    btn("Submit Result",   "btn-accent",     () => openSubmitResult(job.id));
+    btn("Close Job",       "btn-primary",    () => closeJob(job.id));
+    btn("Delegate Sub-Task","btn-secondary", () => openDelegate(job.id));
   }
   if (isClient && status === "Pending") {
     btn("Cancel Job", "btn-danger", () => cancelJob(job.id));
   }
   if (isClient && status === "Completed") {
     btn("Release Payment", "btn-primary", () => releasePayment(job.id));
-    btn("Raise Dispute", "btn-danger", () => raiseDispute(job.id));
+    btn("Raise Dispute",   "btn-danger",  () => raiseDispute(job.id));
+    if (hasResult && !job.resultAttested) {
+      btn("Attest Result", "btn-secondary", () => attestResult(job.id));
+    }
   }
   if (status === "Completed" && job.autoReleaseAt > 0 && Date.now() / 1000 >= Number(job.autoReleaseAt)) {
     btn("Auto-Release", "btn-secondary", () => autoRelease(job.id));
@@ -518,6 +600,9 @@ async function raiseDispute(jobId) {
 async function resolveDisputeByTimeout(jobId) {
   await contractCall(() => contract.resolveDisputeByTimeout(jobId), `Dispute resolved by timeout for job #${jobId}.`);
 }
+async function attestResult(jobId) {
+  await contractCall(() => contract.attestResult(jobId), `Result attested for job #${jobId}.`);
+}
 
 async function contractCall(fn, successMsg) {
   try {
@@ -533,7 +618,7 @@ async function contractCall(fn, successMsg) {
 
 // ─── Submit Result Modal ───
 function openSubmitResult(jobId) {
-  document.getElementById("resultJobId").value = jobId;
+  document.getElementById("resultJobId").value   = jobId;
   document.getElementById("resultUriInput").value = "";
   openModal("submitResultModal");
 }
@@ -542,24 +627,30 @@ async function submitResult() {
   const jobId = document.getElementById("resultJobId").value;
   const uri   = document.getElementById("resultUriInput").value.trim();
   if (!uri) { showToast("Enter a result URI.", "error"); return; }
+
+  // Hash the URI as the content commitment (keccak256 of the URI string)
+  const contentHash = ethers.keccak256(ethers.toUtf8Bytes(uri));
   closeModal("submitResultModal");
-  await contractCall(() => contract.updateJob(jobId, uri), `Result submitted for job #${jobId}.`);
+  await contractCall(
+    () => contract.updateJob(jobId, uri, contentHash),
+    `Result submitted for job #${jobId}.`
+  );
 }
 
 // ─── Delegate Modal ───
 function openDelegate(jobId) {
-  document.getElementById("delegateParentId").value = jobId;
-  document.getElementById("delegateSubAgent").value = "";
-  document.getElementById("delegateDesc").value = "";
-  document.getElementById("delegateEscrow").value = "";
+  document.getElementById("delegateParentId").value  = jobId;
+  document.getElementById("delegateSubAgent").value  = "";
+  document.getElementById("delegateDesc").value      = "";
+  document.getElementById("delegateEscrow").value    = "";
   openModal("delegateModal");
 }
 
 async function delegateTask() {
-  const parentId  = document.getElementById("delegateParentId").value;
-  const subAgent  = document.getElementById("delegateSubAgent").value.trim();
-  const desc      = document.getElementById("delegateDesc").value.trim();
-  const escrow    = document.getElementById("delegateEscrow").value;
+  const parentId = document.getElementById("delegateParentId").value;
+  const subAgent = document.getElementById("delegateSubAgent").value.trim();
+  const desc     = document.getElementById("delegateDesc").value.trim();
+  const escrow   = document.getElementById("delegateEscrow").value;
   if (!subAgent || !desc || !escrow) { showToast("Fill all fields.", "error"); return; }
   closeModal("delegateModal");
   try {
@@ -584,7 +675,7 @@ function selectStar(val) {
   selectedRating = val;
   document.getElementById("rateScore").value = val;
   document.querySelectorAll(".star-btn").forEach(b => {
-    b.classList.toggle("btn-primary", parseInt(b.dataset.val) === val);
+    b.classList.toggle("btn-primary",   parseInt(b.dataset.val) === val);
     b.classList.toggle("btn-secondary", parseInt(b.dataset.val) !== val);
   });
 }
@@ -596,7 +687,7 @@ async function submitRating() {
   await contractCall(() => contract.rateAgent(jobId, score), `Agent rated ${score}/5 for job #${jobId}!`);
 }
 
-// ─── Event Subscriptions ───
+// ─── Event Subscriptions + Notifications ───
 function subscribeToEvents() {
   if (!contract) return;
   const log = document.getElementById("eventLog");
@@ -614,29 +705,90 @@ function subscribeToEvents() {
     if (log.children.length > 100) log.removeChild(log.lastChild);
   };
 
-  contract.on("AgentRegistered", (owner, name, caps, price) => {
+  contract.on("AgentRegistered", (owner, name) => {
     addLog("AgentRegistered", `${shortAddr(owner)} — ${name}`);
     refreshStats();
   });
+
   contract.on("JobCreated", (jobId, client, agent, escrow) => {
     addLog("JobCreated", `#${jobId} Client:${shortAddr(client)} Agent:${shortAddr(agent)} ${ethers.formatEther(escrow)} MNT`);
     refreshStats();
+    // Notify agent that they have a new job
+    if (agent.toLowerCase() === account.toLowerCase()) {
+      sendNotification(
+        `New job #${jobId}!`,
+        `${ethers.formatEther(escrow)} MNT escrow from ${shortAddr(client)}`,
+        `new-job-${jobId}`
+      );
+      loadMyJobs();
+    }
   });
-  contract.on("PaymentReleased", (jobId, agent, amount) => {
-    addLog("PaymentReleased", `#${jobId} → ${shortAddr(agent)}: ${ethers.formatEther(amount)} MNT`);
-  });
+
   contract.on("JobClosed", (jobId) => {
     addLog("JobClosed", `#${jobId} marked Completed`);
+    // Notify client that their job is ready for review
+    contract.getJob(jobId).then(job => {
+      if (job.client.toLowerCase() === account.toLowerCase()) {
+        sendNotification(
+          `Job #${jobId} completed`,
+          "Your agent delivered the result — review and release payment.",
+          `job-complete-${jobId}`
+        );
+        loadMyJobs();
+      }
+    }).catch(() => {});
   });
+
+  contract.on("PaymentReleased", (jobId, agent, amount) => {
+    addLog("PaymentReleased", `#${jobId} → ${shortAddr(agent)}: ${ethers.formatEther(amount)} MNT`);
+    if (agent.toLowerCase() === account.toLowerCase()) {
+      sendNotification(
+        `Payment received!`,
+        `${ethers.formatEther(amount)} MNT released for job #${jobId}`,
+        `payment-${jobId}`
+      );
+      loadMyJobs();
+    }
+  });
+
   contract.on("DisputeRaised", (jobId, by) => {
     addLog("DisputeRaised", `#${jobId} by ${shortAddr(by)}`);
+    // Notify the other party in the dispute
+    contract.getJob(jobId).then(job => {
+      const otherParty = by.toLowerCase() === job.client.toLowerCase() ? job.agent : job.client;
+      if (otherParty.toLowerCase() === account.toLowerCase()) {
+        sendNotification(
+          `Dispute raised on job #${jobId}`,
+          `${shortAddr(by)} has opened a dispute. Arbiter will review.`,
+          `dispute-${jobId}`
+        );
+      }
+    }).catch(() => {});
   });
+
   contract.on("TaskDelegated", (parent, child, subAgent) => {
     addLog("TaskDelegated", `Parent #${parent} → Child #${child} → ${shortAddr(subAgent)}`);
+    if (subAgent.toLowerCase() === account.toLowerCase()) {
+      sendNotification(
+        `Delegated task #${child}`,
+        `A sub-task from job #${parent} has been assigned to you.`,
+        `delegate-${child}`
+      );
+      loadMyJobs();
+    }
   });
+
   contract.on("AgentRated", (jobId, client, agent, score) => {
     addLog("AgentRated", `#${jobId}: ${shortAddr(agent)} rated ${score}/5 by ${shortAddr(client)}`);
+    if (agent.toLowerCase() === account.toLowerCase()) {
+      sendNotification(
+        `You received a rating`,
+        `${shortAddr(client)} rated you ${score}/5 for job #${jobId}`,
+        `rating-${jobId}`
+      );
+    }
   });
+
   contract.on("AutoReleased", (jobId, amount) => {
     addLog("AutoReleased", `#${jobId}: ${ethers.formatEther(amount)} MNT auto-released`);
   });
@@ -660,13 +812,13 @@ function showTab(name) {
   document.getElementById("tab-" + name).classList.add("active");
   event.target.classList.add("active");
 
-  if (name === "agents") loadAgents();
-  if (name === "my-jobs") loadMyJobs();
+  if (name === "agents")     loadAgents();
+  if (name === "my-jobs")    loadMyJobs();
   if (name === "create-job") loadAgentsForJobSelect();
 }
 
 // ─── Modals ───
-function openModal(id) { document.getElementById(id).classList.add("open"); }
+function openModal(id)  { document.getElementById(id).classList.add("open"); }
 function closeModal(id) { document.getElementById(id).classList.remove("open"); }
 
 document.addEventListener("click", (e) => {

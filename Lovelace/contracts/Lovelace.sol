@@ -24,6 +24,30 @@ contract Lovelace is ReentrancyGuard {
     using SafeERC20 for IERC20;
 
     // ─────────────────────────────────────────────────────────────
+    // Owner
+    // ─────────────────────────────────────────────────────────────
+
+    address public owner;
+
+    event OwnershipTransferred(address indexed previous, address indexed next);
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+
+    constructor() {
+        owner = msg.sender;
+        emit OwnershipTransferred(address(0), msg.sender);
+    }
+
+    function transferOwnership(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "Zero address");
+        emit OwnershipTransferred(owner, newOwner);
+        owner = newOwner;
+    }
+
+    // ─────────────────────────────────────────────────────────────
     // Constants
     // ─────────────────────────────────────────────────────────────
 
@@ -99,6 +123,8 @@ contract Lovelace is ReentrancyGuard {
     // ─────────────────────────────────────────────────────────────
     // Events
     // ─────────────────────────────────────────────────────────────
+
+    event AgentSlashed(address indexed agent, uint256 amount, string reason);
 
     event AgentRegistered(address indexed owner, string name, uint16 capabilities, uint256 priceWei);
     event AgentUpdated(address indexed owner, bool isActive);
@@ -576,6 +602,28 @@ contract Lovelace is ReentrancyGuard {
         agents[job.agent].ratingCount++;
 
         emit AgentRated(jobId, msg.sender, job.agent, score);
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // 17. Slash Agent (owner penalises a misbehaving agent's stake)
+    // ─────────────────────────────────────────────────────────────
+
+    function slashAgent(address agentOwner, uint256 amount, string calldata reason)
+        external nonReentrant onlyOwner agentExists(agentOwner)
+    {
+        require(amount > 0, "Amount must be > 0");
+        AgentProfile storage agent = agents[agentOwner];
+        require(amount <= agent.stakeAmount, "Slash exceeds stake");
+
+        agent.stakeAmount -= amount;
+        if (agent.stakeAmount < MIN_STAKE) {
+            agent.isActive = false;
+        }
+
+        (bool ok,) = owner.call{value: amount}("");
+        require(ok, "Transfer failed");
+
+        emit AgentSlashed(agentOwner, amount, reason);
     }
 
     // ─────────────────────────────────────────────────────────────
